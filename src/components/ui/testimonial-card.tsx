@@ -8,6 +8,7 @@ interface TestimonialCardProps {
   location?: string;
   rating: 1 | 2 | 3 | 4 | 5;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export function TestimonialCard({
@@ -17,9 +18,13 @@ export function TestimonialCard({
   location,
   rating,
   className = "",
+  style,
 }: TestimonialCardProps) {
   return (
-    <div className={`p-8 rounded-lg bg-white border border-border shadow-subtle ${className}`}>
+    <div 
+      className={`p-8 rounded-lg bg-white border border-border shadow-subtle ${className}`}
+      style={style}
+    >
       <div className="flex items-center space-x-1 mb-4">
         {Array.from({ length: rating }).map((_, i) => (
           <svg
