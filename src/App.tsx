@@ -12,6 +12,10 @@ import Blog from "./pages/Blog";
 import Testimonials from "./pages/Testimonials";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import RingCollection from "./pages/collections/RingCollection";
+import NecklaceCollection from "./pages/collections/NecklaceCollection";
+import EarringCollection from "./pages/collections/EarringCollection";
+import BraceletCollection from "./pages/collections/BraceletCollection";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +28,10 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/collections" element={<Collections />} />
+          <Route path="/collections/rings" element={<RingCollection />} />
+          <Route path="/collections/necklaces" element={<NecklaceCollection />} />
+          <Route path="/collections/earrings" element={<EarringCollection />} />
+          <Route path="/collections/bracelets" element={<BraceletCollection />} />
           <Route path="/about" element={<About />} />
           <Route path="/custom" element={<CustomDesign />} />
           <Route path="/blog" element={<Blog />} />
