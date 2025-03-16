@@ -3,17 +3,17 @@ import React from "react";
 import { SectionHeading } from "@/components/ui/section-heading";
 
 interface CollectionCareProps {
-  title: string;
+  collectionType: string;
   careInstructions: string;
 }
 
-export function CollectionCare({ title, careInstructions }: CollectionCareProps) {
+export function CollectionCare({ collectionType, careInstructions }: CollectionCareProps) {
   return (
     <section className="py-16 bg-jewelry-subtle">
       <div className="container">
         <SectionHeading
           subtitle="Care Guide"
-          title={`Caring For Your ${title}`}
+          title={`Caring For Your ${collectionType}`}
           description="Follow these recommendations to keep your jewelry looking beautiful for years to come."
         />
         <div className="max-w-3xl mx-auto">
