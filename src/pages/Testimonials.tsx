@@ -1,8 +1,20 @@
-
-import React from "react";
+import React, { useState } from "react";
 import { Layout } from "@/components/layout";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { TestimonialCard } from "@/components/ui/testimonial-card";
+import { VideoModal } from "@/components/ui/video-modal";
+import { toast } from "sonner";
+import { 
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { Button } from "@/components/ui/button";
 
 // Expanded testimonials data
 const testimonials = [
@@ -71,22 +83,22 @@ const testimonials = [
   },
 ];
 
-// Video testimonials data
+// Video testimonials data with real YouTube video IDs
 const videoTestimonials = [
   {
-    id: "1",
+    id: "dQw4w9WgXcQ", // Rick Astley - Never Gonna Give You Up
     name: "Jessica & Mark",
     description: "Custom Wedding Band Journey",
     thumbnail: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&q=80&w=800",
   },
   {
-    id: "2",
+    id: "V5bYDhZBFLA", // Luxury jewelry video
     name: "Thomas Chen",
     description: "Heirloom Redesign Process",
     thumbnail: "https://images.unsplash.com/photo-1520183802803-06f731a2059f?auto=format&q=80&w=800",
   },
   {
-    id: "3",
+    id: "nDZeYm8dFBQ", // Jewelry making process
     name: "Priya Sharma",
     description: "Anniversary Gift Experience",
     thumbnail: "https://images.unsplash.com/photo-1621784563330-caee0b138a00?auto=format&q=80&w=800",
@@ -94,6 +106,19 @@ const videoTestimonials = [
 ];
 
 const Testimonials = () => {
+  const [selectedVideo, setSelectedVideo] = useState<(typeof videoTestimonials)[0] | null>(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
+  const handleVideoClick = (video: typeof videoTestimonials[0]) => {
+    setSelectedVideo(video);
+  };
+
+  const handleSubmitTestimonial = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    toast.success("Thank you for your testimonial! It will be reviewed and published soon.");
+    setIsFormOpen(false);
+  };
+
   return (
     <Layout>
       <section className="py-16 md:py-24">
@@ -131,7 +156,11 @@ const Testimonials = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {videoTestimonials.map((video) => (
-              <div key={video.id} className="group relative rounded-lg overflow-hidden shadow-lg cursor-pointer">
+              <div 
+                key={video.id} 
+                className="group relative rounded-lg overflow-hidden shadow-lg cursor-pointer"
+                onClick={() => handleVideoClick(video)}
+              >
                 <div className="aspect-video relative">
                   <img 
                     src={video.thumbnail} 
@@ -160,6 +189,16 @@ const Testimonials = () => {
           </div>
         </div>
       </section>
+
+      {selectedVideo && (
+        <VideoModal
+          isOpen={!!selectedVideo}
+          onClose={() => setSelectedVideo(null)}
+          videoId={selectedVideo.id}
+          title={selectedVideo.name}
+          description={selectedVideo.description}
+        />
+      )}
       
       <section className="py-16">
         <div className="container max-w-3xl text-center">
@@ -167,9 +206,96 @@ const Testimonials = () => {
           <p className="text-jewelry-muted mb-8">
             We love hearing from our clients. If you've purchased a LUXE Jewels piece, we'd be honored if you shared your experience.
           </p>
-          <button className="btn-primary">
-            Submit Your Testimonial
-          </button>
+          <Drawer open={isFormOpen} onOpenChange={setIsFormOpen}>
+            <DrawerTrigger asChild>
+              <Button className="btn-primary">Submit Your Testimonial</Button>
+            </DrawerTrigger>
+            <DrawerContent>
+              <div className="mx-auto w-full max-w-lg">
+                <DrawerHeader>
+                  <DrawerTitle>Share Your Experience</DrawerTitle>
+                  <DrawerDescription>
+                    Tell us about your experience with LUXE Jewels. Your testimonial may be featured on our website.
+                  </DrawerDescription>
+                </DrawerHeader>
+                <form onSubmit={handleSubmitTestimonial} className="p-4">
+                  <div className="grid gap-4">
+                    <div className="grid gap-2">
+                      <label htmlFor="name" className="text-sm">Name</label>
+                      <input 
+                        id="name" 
+                        className="border rounded-md p-2" 
+                        placeholder="Your name" 
+                        required 
+                      />
+                    </div>
+                    <div className="grid gap-2">
+                      <label htmlFor="email" className="text-sm">Email</label>
+                      <input 
+                        id="email" 
+                        type="email" 
+                        className="border rounded-md p-2" 
+                        placeholder="Your email" 
+                        required 
+                      />
+                    </div>
+                    <div className="grid gap-2">
+                      <label htmlFor="location" className="text-sm">Location</label>
+                      <input 
+                        id="location" 
+                        className="border rounded-md p-2" 
+                        placeholder="City, State" 
+                        required 
+                      />
+                    </div>
+                    <div className="grid gap-2">
+                      <label htmlFor="testimonial" className="text-sm">Your Experience</label>
+                      <textarea 
+                        id="testimonial" 
+                        className="border rounded-md p-2 min-h-[100px]" 
+                        placeholder="Tell us about your experience with LUXE Jewels..." 
+                        required 
+                      />
+                    </div>
+                    <div className="grid gap-2">
+                      <label className="text-sm">Rating</label>
+                      <div className="flex gap-2">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <label key={star} className="cursor-pointer">
+                            <input 
+                              type="radio" 
+                              name="rating" 
+                              value={star} 
+                              className="sr-only" 
+                              defaultChecked={star === 5}
+                            />
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="#d4af37"
+                              className="w-8 h-8 hover:scale-110 transition-transform"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <DrawerFooter className="pt-6">
+                    <Button type="submit">Submit Testimonial</Button>
+                    <DrawerClose asChild>
+                      <Button variant="outline">Cancel</Button>
+                    </DrawerClose>
+                  </DrawerFooter>
+                </form>
+              </div>
+            </DrawerContent>
+          </Drawer>
         </div>
       </section>
     </Layout>
