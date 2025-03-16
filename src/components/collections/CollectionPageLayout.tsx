@@ -12,53 +12,43 @@ export interface CollectionProduct {
   name: string;
   price: number;
   image: string;
-  description?: string;
-  material?: string;
-  isNew?: boolean;
   isBestseller?: boolean;
+  isNew?: boolean;
 }
 
 interface CollectionPageLayoutProps {
   title: string;
   subtitle: string;
   description: string;
+  collectionType: string;
   heroImage: string;
   products: CollectionProduct[];
-  collectionType: string;
-  craftingDescription?: string;
-  careInstructions?: string;
 }
 
 export function CollectionPageLayout({
   title,
   subtitle,
   description,
-  heroImage,
-  products,
   collectionType,
-  craftingDescription,
-  careInstructions
+  heroImage,
+  products
 }: CollectionPageLayoutProps) {
   return (
     <Layout>
-      <CollectionBreadcrumb title={title} />
+      <CollectionBreadcrumb collectionName={title} />
       <CollectionHero 
         title={title} 
         description={description} 
         heroImage={heroImage} 
       />
       <CollectionProducts 
-        title={title}
-        subtitle={subtitle}
-        collectionType={collectionType}
-        products={products}
+        title={title} 
+        subtitle={subtitle} 
+        collectionType={collectionType} 
+        products={products} 
       />
-      {craftingDescription && (
-        <CollectionCrafting craftingDescription={craftingDescription} />
-      )}
-      {careInstructions && (
-        <CollectionCare title={title} careInstructions={careInstructions} />
-      )}
+      <CollectionCrafting collectionType={collectionType} />
+      <CollectionCare collectionType={collectionType} />
     </Layout>
   );
 }
