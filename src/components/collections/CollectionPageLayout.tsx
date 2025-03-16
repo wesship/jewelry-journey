@@ -48,13 +48,17 @@ export function CollectionPageLayout({
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbLink as={Link} to="/">
-                  <Home className="h-4 w-4" />
+                <BreadcrumbLink asChild>
+                  <Link to="/">
+                    <Home className="h-4 w-4" />
+                  </Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbLink as={Link} to="/collections">Collections</BreadcrumbLink>
+                <BreadcrumbLink asChild>
+                  <Link to="/collections">Collections</Link>
+                </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
@@ -113,6 +117,8 @@ export function CollectionPageLayout({
                 price={product.price}
                 image={product.image}
                 category={collectionType}
+                isNew={product.isNew}
+                isBestseller={product.isBestseller}
               />
             ))}
           </div>
