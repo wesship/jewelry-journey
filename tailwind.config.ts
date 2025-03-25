@@ -58,13 +58,17 @@ export default {
 					DEFAULT: '#d4af37',
 					dark: '#9c7f2e'
 				},
+				black: {
+					DEFAULT: '#000000',
+					light: '#222222',
+				},
 				jewelry: {
-					background: '#fafafa',
-					text: '#333333',
+					background: '#000000',
+					text: '#ffffff',
 					accent: '#d4af37',
-					subtle: '#f0f0f0',
+					subtle: '#111111',
 					muted: '#999999',
-					light: '#ffffff'
+					light: '#f5e7c1'
 				},
 			},
 			borderRadius: {
