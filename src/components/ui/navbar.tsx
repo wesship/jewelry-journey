@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Search, ShoppingCart, User } from "lucide-react";
+import { Search, ShoppingCart, User, Package } from "lucide-react";
 
 const NAV_LINKS = [
   { name: "COLLECTIONS", path: "/collections" },
@@ -62,6 +62,13 @@ export function Navbar() {
             aria-label="Search"
           >
             <Search size={20} />
+          </Link>
+          <Link 
+            to="/suppliers" 
+            className="p-2 text-white hover:text-primary transition-colors"
+            aria-label="Supplier Management"
+          >
+            <Package size={20} />
           </Link>
           <Link 
             to="/account" 
