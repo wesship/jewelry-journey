@@ -17,6 +17,11 @@ import RingCollection from "./pages/collections/RingCollection";
 import NecklaceCollection from "./pages/collections/NecklaceCollection";
 import EarringCollection from "./pages/collections/EarringCollection";
 import BraceletCollection from "./pages/collections/BraceletCollection";
+import ProductDetail from "./pages/ProductDetail";
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+import Account from "./pages/Account";
+import Search from "./pages/Search";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +44,11 @@ const App = () => (
           <Route path="/blog/:id" element={<BlogPost />} />
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/search" element={<Search />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -72,10 +72,13 @@ export function Navbar() {
           </Link>
           <Link 
             to="/cart" 
-            className="p-2 text-white hover:text-primary transition-colors"
+            className="p-2 text-white hover:text-primary transition-colors relative"
             aria-label="Cart"
           >
             <ShoppingCart size={20} />
+            <span className="absolute -top-1 -right-1 bg-primary text-black text-xs w-4 h-4 rounded-full flex items-center justify-center">
+              2
+            </span>
           </Link>
         </div>
       </div>
