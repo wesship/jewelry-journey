@@ -1,21 +1,17 @@
 
-import React, { useState } from "react";
+import React from "react";
 import { Layout } from "@/components/layout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SupplierConnectionPanel } from "@/components/suppliers/SupplierConnectionPanel";
 import { SupplierProducts } from "@/components/suppliers/SupplierProducts";
+import { SupplierHeader } from "@/components/suppliers/SupplierHeader";
 
 const SupplierManagement = () => {
   return (
     <Layout>
       <div className="container py-12">
-        <div className="text-center mb-10">
-          <h1 className="text-3xl md:text-4xl font-display mb-4">Supplier Management</h1>
-          <p className="text-jewelry-muted max-w-2xl mx-auto">
-            Connect to dropshipping suppliers, browse their products, and manage your inventory.
-          </p>
-        </div>
-
+        <SupplierHeader />
+        
         <Tabs defaultValue="connections" className="space-y-8">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="connections">Connections</TabsTrigger>
