@@ -11,10 +11,10 @@ export function SalesBanner() {
           <div className="flex items-center gap-3">
             <Clock className="h-6 w-6" strokeWidth={2.5} />
             <h3 className="text-xl font-bold">
-              Limited Time Offer: 20% Off Selected Items
+              Limited Time Offer: 25% Off Selected Items
             </h3>
           </div>
-          <p className="text-black text-lg">Use code <span className="font-bold bg-black/10 px-2 py-1 rounded">LUXURY20</span> at checkout</p>
+          <p className="text-black text-lg">Use code <span className="font-bold bg-black/10 px-2 py-1 rounded">LUXURY25</span> at checkout</p>
           <Link
             to="/collections"
             className="bg-black text-white px-8 py-3 rounded-md hover:bg-black/80 transition-colors font-bold text-base shadow-lg"
