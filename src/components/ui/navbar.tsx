@@ -28,14 +28,14 @@ export function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-black/95 backdrop-blur-sm shadow-subtle py-3"
-          : "bg-black/80 backdrop-blur-sm py-5"
+          ? "bg-black shadow-md py-3"
+          : "bg-black/90 backdrop-blur-sm py-5"
       }`}
     >
       <div className="container px-4 flex items-center justify-between">
         <Link 
           to="/" 
-          className="font-display text-2xl font-semibold"
+          className="font-display text-2xl font-bold"
           aria-label="Mile High Golden Elevation - Home"
         >
           <span className="text-primary">MILE HIGH</span>
@@ -46,7 +46,7 @@ export function Navbar() {
             <Link
               key={link.path}
               to={link.path}
-              className={`text-sm tracking-widest hover:text-primary transition-colors ${
+              className={`text-sm font-bold tracking-widest hover:text-primary transition-colors ${
                 location.pathname === link.path ? "text-primary" : "text-white"
               }`}
             >
@@ -61,35 +61,35 @@ export function Navbar() {
             className="p-2 text-white hover:text-primary transition-colors"
             aria-label="Search"
           >
-            <Search size={20} />
+            <Search size={22} strokeWidth={2} />
           </Link>
           <Link 
             to="/suppliers" 
             className="p-2 text-white hover:text-primary transition-colors"
             aria-label="Supplier Management"
           >
-            <Package size={20} />
+            <Package size={22} strokeWidth={2} />
           </Link>
           <Link 
             to="/account" 
             className="p-2 text-white hover:text-primary transition-colors"
             aria-label="Account"
           >
-            <User size={20} />
+            <User size={22} strokeWidth={2} />
           </Link>
           <Link 
             to="/cart" 
             className="p-2 text-white hover:text-primary transition-colors relative"
             aria-label="Cart"
           >
-            <ShoppingCart size={20} />
-            <span className="absolute -top-1 -right-1 bg-primary text-black text-xs w-4 h-4 rounded-full flex items-center justify-center">
+            <ShoppingCart size={22} strokeWidth={2} />
+            <span className="absolute -top-1 -right-1 bg-primary text-black text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
               2
             </span>
           </Link>
         </div>
       </div>
-      <div className="w-full h-px bg-gradient-to-r from-transparent via-gold-light to-transparent"></div>
+      <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-gold-light to-transparent"></div>
     </header>
   );
 }
