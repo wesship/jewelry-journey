@@ -52,7 +52,7 @@ export const SupplierFilterBar = ({ onFilterChange }: SupplierFilterBarProps) =>
         </Badge>
         <Badge 
           variant={status === "disconnected" ? "default" : "outline"}
-          className={`cursor-pointer ${status === "disconnected" ? "bg-transparent"}`}
+          className="cursor-pointer"
           onClick={() => handleStatusChange("disconnected")}
         >
           Not Connected
