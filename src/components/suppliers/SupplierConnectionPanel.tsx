@@ -1,15 +1,33 @@
 
-import React from "react";
+import React, { useState, useMemo } from "react";
 import { AlertCircle } from "lucide-react";
 import { supplierApi } from "@/services/supplierApi";
 import { SupplierConnectionCard } from "./SupplierConnectionCard";
+import { SupplierFilterBar } from "./SupplierFilterBar";
 
 export function SupplierConnectionPanel() {
   const suppliers = supplierApi.getSuppliers();
+  const [filters, setFilters] = useState({ search: "", status: "all" });
   
   const handleConnect = (supplierId: string, apiKey: string) => {
     supplierApi.setApiKey(supplierId, apiKey);
   };
+
+  const filteredSuppliers = useMemo(() => {
+    return suppliers.filter(supplier => {
+      // Filter by search term
+      const matchesSearch = supplier.name.toLowerCase().includes(filters.search.toLowerCase()) ||
+                           supplier.description.toLowerCase().includes(filters.search.toLowerCase());
+      
+      // Filter by connection status
+      const matchesStatus = 
+        filters.status === "all" || 
+        (filters.status === "connected" && supplier.isConnected) ||
+        (filters.status === "disconnected" && !supplier.isConnected);
+      
+      return matchesSearch && matchesStatus;
+    });
+  }, [suppliers, filters]);
 
   return (
     <div className="space-y-6">
@@ -20,8 +38,10 @@ export function SupplierConnectionPanel() {
         </p>
       </div>
       
+      <SupplierFilterBar onFilterChange={setFilters} />
+      
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {suppliers.map((supplier) => (
+        {filteredSuppliers.map((supplier) => (
           <SupplierConnectionCard
             key={supplier.id}
             supplier={supplier}
