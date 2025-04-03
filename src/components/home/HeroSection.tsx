@@ -14,7 +14,7 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-black/50"></div>
       </div>
       
-      <div className="container relative z-10 text-center mx-auto px-4">
+      <div className="container relative z-20 text-center mx-auto px-4">
         <div className="max-w-3xl mx-auto bg-black/30 backdrop-blur-sm p-6 rounded-lg">
           <h1 className="mb-6 text-5xl md:text-6xl lg:text-7xl text-white font-display drop-shadow-lg">
             MILE HIGH <span className="text-primary font-bold">GOLDEN</span> ELEVATION
@@ -25,7 +25,7 @@ export function HeroSection() {
           <p className="text-xl mb-10 text-white max-w-xl mx-auto">
             Sculpt your personalized luxuries
           </p>
-          <div className="flex justify-center">
+          <div className="flex justify-center mb-8">
             <Link
               to="/collections"
               className="btn-primary bg-primary text-black hover:bg-primary/90 px-10 py-3 uppercase tracking-wider font-bold shadow-lg"
@@ -36,8 +36,8 @@ export function HeroSection() {
         </div>
       </div>
       
-      <div className="absolute bottom-0 left-0 right-0 z-10">
-        <div className="container mx-auto px-4 pb-16">
+      <div className="absolute bottom-0 left-0 right-0 z-10 pb-5">
+        <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <ProductFeature 
               image="https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&q=80&w=800"
