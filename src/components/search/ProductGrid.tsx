@@ -2,6 +2,7 @@
 import React from "react";
 import { ProductCard } from "@/components/ui/product-card";
 import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 import { priceRanges } from "./FilterPanel";
 
 interface Product {
@@ -10,6 +11,7 @@ interface Product {
   price: number;
   image: string;
   category: string;
+  material?: string;
 }
 
 interface ProductGridProps {
@@ -19,6 +21,7 @@ interface ProductGridProps {
   setSearchQuery: (query: string) => void;
   setSelectedCategory: (category: string) => void;
   setSelectedPriceRange: (range: number) => void;
+  isLoading?: boolean;
 }
 
 export const ProductGrid = ({ 
@@ -27,13 +30,23 @@ export const ProductGrid = ({
   searchQuery, 
   setSearchQuery,
   setSelectedCategory,
-  setSelectedPriceRange
+  setSelectedPriceRange,
+  isLoading = false
 }: ProductGridProps) => {
   const resetFilters = () => {
     setSearchQuery("");
     setSelectedCategory("All");
     setSelectedPriceRange(0);
   };
+
+  if (isLoading) {
+    return (
+      <div className="text-center py-16">
+        <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-primary" />
+        <p className="text-jewelry-muted">Loading products...</p>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -61,6 +74,7 @@ export const ProductGrid = ({
               price={product.price}
               image={product.image}
               category={product.category}
+              loading="lazy"
             />
           ))}
         </div>

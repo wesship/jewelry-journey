@@ -17,7 +17,13 @@ const Search = () => {
     setSelectedPriceRange,
     showFilters,
     setShowFilters,
-    filteredProducts
+    filteredProducts,
+    selectedMaterials,
+    setSelectedMaterials,
+    customPriceRange,
+    setCustomPriceRange,
+    clearAllFilters,
+    activeFilterCount
   } = useProductFilter(allProducts);
   
   return (
@@ -44,6 +50,12 @@ const Search = () => {
           setSelectedCategory={setSelectedCategory}
           selectedPriceRange={selectedPriceRange}
           setSelectedPriceRange={setSelectedPriceRange}
+          selectedMaterials={selectedMaterials}
+          setSelectedMaterials={setSelectedMaterials}
+          customPriceRange={customPriceRange}
+          setCustomPriceRange={setCustomPriceRange}
+          clearAllFilters={clearAllFilters}
+          activeFilterCount={activeFilterCount}
         />
         
         <ProductGrid 
