@@ -3,6 +3,7 @@ import React from "react";
 import { Layout } from "@/components/layout";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Link } from "react-router-dom";
+import { ContactForm } from "@/components/contact/ContactForm";
 
 const Contact = () => {
   return (
@@ -17,92 +18,7 @@ const Contact = () => {
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div>
-              <div className="bg-white p-8 rounded-lg shadow-subtle border border-border">
-                <h3 className="text-xl font-medium mb-6">Send Us a Message</h3>
-                <form className="space-y-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="firstName" className="block text-sm font-medium mb-2">
-                        First Name
-                      </label>
-                      <input
-                        type="text"
-                        id="firstName"
-                        className="w-full px-4 py-3 rounded-md border border-border focus:outline-none focus:ring-1 focus:ring-primary"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="lastName" className="block text-sm font-medium mb-2">
-                        Last Name
-                      </label>
-                      <input
-                        type="text"
-                        id="lastName"
-                        className="w-full px-4 py-3 rounded-md border border-border focus:outline-none focus:ring-1 focus:ring-primary"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium mb-2">
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      className="w-full px-4 py-3 rounded-md border border-border focus:outline-none focus:ring-1 focus:ring-primary"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-medium mb-2">
-                      Phone Number (optional)
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      className="w-full px-4 py-3 rounded-md border border-border focus:outline-none focus:ring-1 focus:ring-primary"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="subject" className="block text-sm font-medium mb-2">
-                      Subject
-                    </label>
-                    <select
-                      id="subject"
-                      className="w-full px-4 py-3 rounded-md border border-border focus:outline-none focus:ring-1 focus:ring-primary"
-                      required
-                    >
-                      <option value="">Select a subject</option>
-                      <option value="customer-service">Customer Service</option>
-                      <option value="custom-design">Custom Design Inquiry</option>
-                      <option value="appointment">Book an Appointment</option>
-                      <option value="order-status">Order Status</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium mb-2">
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      rows={5}
-                      className="w-full px-4 py-3 rounded-md border border-border focus:outline-none focus:ring-1 focus:ring-primary resize-none"
-                      required
-                    ></textarea>
-                  </div>
-                  <div>
-                    <button
-                      type="submit"
-                      className="btn-primary w-full"
-                    >
-                      Send Message
-                    </button>
-                  </div>
-                </form>
-              </div>
+              <ContactForm />
             </div>
             
             <div className="space-y-8">
