@@ -10,7 +10,7 @@ const featuredProducts = [
     id: "1",
     name: "Diamond Solitaire Ring",
     price: 2495,
-    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?auto=format&q=80&w=800",
+    image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&q=80&w=800",
     category: "Rings",
   },
   {
