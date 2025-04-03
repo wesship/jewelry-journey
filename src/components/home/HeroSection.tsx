@@ -40,7 +40,7 @@ export function HeroSection() {
         <div className="container mx-auto px-4 pb-16">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <ProductFeature 
-              image="https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?auto=format&q=80&w=800"
+              image="https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&q=80&w=800"
               title="PRODUCT GALLERY"
               description="Masterpieces with artisanal craft techniques"
             />
