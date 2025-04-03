@@ -46,12 +46,12 @@ export function HeroSection() {
             />
             <ProductFeature 
               image="/lovable-uploads/2dcdab95-697d-4290-9fe2-35cb40375373.png" 
-              title="CUSTOMER TEWALIES"
+              title="CUSTOMER TESTIMONIALS"
               description="Elegant, luxury, comfort, perfect elegance"
             />
             <ProductFeature 
               image="/lovable-uploads/2dcdab95-697d-4290-9fe2-35cb40375373.png" 
-              title="CUSTOMER TEMITOULS"
+              title="CUSTOM DESIGNS"
               description="Style, trend, elite, classic, elite elegance"
             />
           </div>
