@@ -40,17 +40,17 @@ export function HeroSection() {
         <div className="container mx-auto px-4 pb-16">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <ProductFeature 
-              image="/lovable-uploads/2dcdab95-697d-4290-9fe2-35cb40375373.png"
+              image="https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?auto=format&q=80&w=800"
               title="PRODUCT GALLERY"
               description="Masterpieces with artisanal craft techniques"
             />
             <ProductFeature 
-              image="/lovable-uploads/2dcdab95-697d-4290-9fe2-35cb40375373.png" 
+              image="https://images.unsplash.com/photo-1599643477877-530eb83abc8e?auto=format&q=80&w=800" 
               title="CUSTOMER TESTIMONIALS"
               description="Elegant, luxury, comfort, perfect elegance"
             />
             <ProductFeature 
-              image="/lovable-uploads/2dcdab95-697d-4290-9fe2-35cb40375373.png" 
+              image="https://images.unsplash.com/photo-1589128777073-263566ae5e4d?auto=format&q=80&w=800" 
               title="CUSTOM DESIGNS"
               description="Style, trend, elite, classic, elite elegance"
             />
