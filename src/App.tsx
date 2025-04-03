@@ -17,6 +17,7 @@ import RingCollection from "./pages/collections/RingCollection";
 import NecklaceCollection from "./pages/collections/NecklaceCollection";
 import EarringCollection from "./pages/collections/EarringCollection";
 import BraceletCollection from "./pages/collections/BraceletCollection";
+import SapphireEarringsCollection from "./pages/collections/SapphireEarringsCollection";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/collections/necklaces" element={<NecklaceCollection />} />
           <Route path="/collections/earrings" element={<EarringCollection />} />
           <Route path="/collections/bracelets" element={<BraceletCollection />} />
+          <Route path="/collections/sapphire-earrings" element={<SapphireEarringsCollection />} />
           <Route path="/about" element={<About />} />
           <Route path="/custom" element={<CustomDesign />} />
           <Route path="/blog" element={<Blog />} />
