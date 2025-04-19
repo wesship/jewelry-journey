@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Plus } from 'lucide-react'
@@ -15,6 +16,7 @@ export function WebhookManager() {
   const [search, setSearch] = useState('')
   const [typeFilter, setTypeFilter] = useState('')
   const [showInactive, setShowInactive] = useState(false)
+  const [showAddForm, setShowAddForm] = useState(false)
   const [dateRange, setDateRange] = useState<{
     from: Date | undefined;
     to: Date | undefined;
