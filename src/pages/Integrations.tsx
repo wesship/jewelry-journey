@@ -6,7 +6,12 @@ export default function Integrations() {
   return (
     <Layout>
       <div className="container py-8">
-        <h1 className="mb-8 text-3xl font-bold">Integrations</h1>
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold mb-2">External Integrations</h1>
+          <p className="text-gray-600">
+            Manage connections to external services and APIs for your store.
+          </p>
+        </div>
         <IntegrationList />
       </div>
     </Layout>

@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Search, ShoppingCart, User, Package } from "lucide-react";
+import { Search, ShoppingCart, User, Package, Settings } from "lucide-react";
 
 const NAV_LINKS = [
   { name: "COLLECTIONS", path: "/collections" },
@@ -69,6 +69,13 @@ export function Navbar() {
             aria-label="Supplier Management"
           >
             <Package size={22} strokeWidth={2} />
+          </Link>
+          <Link 
+            to="/integrations" 
+            className="p-2 text-white hover:text-primary transition-colors"
+            aria-label="Integrations"
+          >
+            <Settings size={22} strokeWidth={2} />
           </Link>
           <Link 
             to="/account" 
