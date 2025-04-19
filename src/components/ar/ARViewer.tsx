@@ -1,5 +1,5 @@
 
-import React, { Suspense } from 'react';
+import React, { Suspense, useMemo } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { 
   OrbitControls, 
@@ -10,6 +10,8 @@ import {
   Html,
 } from '@react-three/drei';
 import { RingModel } from './RingModel';
+import { NecklaceModel } from './models/NecklaceModel';
+import { EarringModel } from './models/EarringModel';
 
 function Loader() {
   const { progress } = useProgress();
@@ -19,14 +21,33 @@ function Loader() {
 interface ARViewerProps {
   isLoading?: boolean;
   isRotating?: boolean;
+  jewelryType?: 'ring' | 'necklace' | 'earring';
+  modelQuality?: 'low' | 'medium' | 'high';
 }
 
-export function ARViewer({ isLoading, isRotating }: ARViewerProps) {
+export function ARViewer({ isLoading, isRotating, jewelryType = 'ring', modelQuality = 'high' }: ARViewerProps) {
+  const pixelRatio = useMemo(() => {
+    switch (modelQuality) {
+      case 'low': return [1, 1];
+      case 'medium': return [1, 2];
+      case 'high': return [2, 2];
+      default: return [1, 2];
+    }
+  }, [modelQuality]);
+
+  const JewelryComponent = useMemo(() => {
+    switch (jewelryType) {
+      case 'necklace': return NecklaceModel;
+      case 'earring': return EarringModel;
+      default: return RingModel;
+    }
+  }, [jewelryType]);
+
   return (
     <div className="w-full h-[300px] rounded-lg overflow-hidden bg-gradient-to-b from-gray-900 to-gray-800">
       <Canvas
         camera={{ position: [0, 0, 5], fov: 45 }}
-        dpr={[1, 2]}
+        dpr={pixelRatio}
       >
         <Suspense fallback={<Loader />}>
           <ambientLight intensity={0.5} />
@@ -46,7 +67,7 @@ export function ARViewer({ isLoading, isRotating }: ARViewerProps) {
             config={{ mass: 2, tension: 500 }}
             snap={{ mass: 4, tension: 1500 }}
           >
-            <RingModel isRotating={isRotating} />
+            <JewelryComponent isRotating={isRotating} />
           </PresentationControls>
           <ContactShadows 
             position={[0, -1.5, 0]}
