@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Plus } from 'lucide-react'
@@ -13,9 +12,16 @@ import { Webhook } from './types'
 import { WebhookErrorBoundary } from './WebhookErrorBoundary'
 
 export function WebhookManager() {
-  const [showAddForm, setShowAddForm] = useState(false)
   const [search, setSearch] = useState('')
   const [typeFilter, setTypeFilter] = useState('')
+  const [showInactive, setShowInactive] = useState(false)
+  const [dateRange, setDateRange] = useState<{
+    from: Date | undefined;
+    to: Date | undefined;
+  }>({
+    from: undefined,
+    to: undefined,
+  })
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
 
@@ -48,10 +54,15 @@ export function WebhookManager() {
       const matchesSearch = webhook.name.toLowerCase().includes(search.toLowerCase()) ||
                           webhook.url.toLowerCase().includes(search.toLowerCase())
       const matchesType = !typeFilter || webhook.type === typeFilter
+      const matchesActive = showInactive || webhook.is_active
+      const matchesDate = !dateRange.from || !dateRange.to || 
+        (webhook.created_at && 
+          new Date(webhook.created_at) >= dateRange.from &&
+          new Date(webhook.created_at) <= dateRange.to)
 
-      return matchesSearch && matchesType
+      return matchesSearch && matchesType && matchesActive && matchesDate
     })
-  }, [webhooks, search, typeFilter])
+  }, [webhooks, search, typeFilter, showInactive, dateRange])
 
   const paginatedWebhooks = useMemo(() => {
     const start = (currentPage - 1) * pageSize
@@ -105,6 +116,10 @@ export function WebhookManager() {
           onSearchChange={setSearch}
           typeFilter={typeFilter}
           onTypeFilterChange={setTypeFilter}
+          showInactive={showInactive}
+          onShowInactiveChange={setShowInactive}
+          dateRange={dateRange}
+          onDateRangeChange={setDateRange}
         />
 
         {showAddForm && (
