@@ -12,6 +12,8 @@ import { FAQSection } from "@/components/home/FAQSection";
 import { PersonalizedRecommendations } from "@/components/home/PersonalizedRecommendations";
 import { VIPBenefits } from "@/components/home/VIPBenefits";
 import { GamificationPreview } from "@/components/home/GamificationPreview";
+import { VIPAccessModal } from "@/components/home/VIPAccessModal";
+import { AchievementBadges } from "@/components/home/AchievementBadges";
 
 const Index = () => {
   return (
@@ -22,11 +24,15 @@ const Index = () => {
       <VIPBenefits />
       <FeaturedProducts />
       <GamificationPreview />
+      <AchievementBadges />
       <PersonalizedRecommendations />
       <CustomDesignCTA />
       <TestimonialsSection />
       <FAQSection />
       <NewsletterSection />
+      <div className="fixed bottom-4 right-4 z-50">
+        <VIPAccessModal />
+      </div>
     </Layout>
   );
 };
