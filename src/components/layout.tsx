@@ -4,6 +4,7 @@ import { Navbar } from "./ui/navbar";
 import { Footer } from "./ui/footer";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { AIAssistant } from "./chat/AIAssistant";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -23,6 +24,7 @@ export function Layout({ children }: LayoutProps) {
       <main className="flex-grow">
         {children}
       </main>
+      <AIAssistant />
       <Footer />
     </div>
   );
