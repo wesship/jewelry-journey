@@ -44,19 +44,29 @@ export function WebhookPagination({
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious 
+            <Button 
+              variant="outline" 
+              size="icon"
               onClick={() => onPageChange(currentPage - 1)}
               disabled={currentPage === 1}
-            />
+            >
+              <PaginationPrevious />
+            </Button>
           </PaginationItem>
           <PaginationItem>
-            Page {currentPage} of {totalPages}
+            <span className="mx-4">
+              Page {currentPage} of {totalPages}
+            </span>
           </PaginationItem>
           <PaginationItem>
-            <PaginationNext 
+            <Button 
+              variant="outline" 
+              size="icon"
               onClick={() => onPageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
-            />
+            >
+              <PaginationNext />
+            </Button>
           </PaginationItem>
         </PaginationContent>
       </Pagination>
