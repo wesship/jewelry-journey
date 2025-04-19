@@ -28,10 +28,10 @@ interface ARViewerProps {
 export function ARViewer({ isLoading, isRotating, jewelryType = 'ring', modelQuality = 'high' }: ARViewerProps) {
   const pixelRatio = useMemo(() => {
     switch (modelQuality) {
-      case 'low': return [1, 1];
-      case 'medium': return [1, 2];
-      case 'high': return [2, 2];
-      default: return [1, 2];
+      case 'low': return [1, 1] as [number, number];
+      case 'medium': return [1, 2] as [number, number];
+      case 'high': return [2, 2] as [number, number];
+      default: return [1, 2] as [number, number];
     }
   }, [modelQuality]);
 
