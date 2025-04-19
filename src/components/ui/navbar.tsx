@@ -1,7 +1,6 @@
-
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Search, ShoppingCart, User, Package, Settings, Link2 } from "lucide-react";
+import { Search, ShoppingCart, User, Package, Settings, Link2, Crown } from "lucide-react";
 
 const NAV_LINKS = [
   { name: "COLLECTIONS", path: "/collections" },
@@ -35,10 +34,14 @@ export function Navbar() {
       <div className="container px-4 flex items-center justify-between">
         <Link 
           to="/" 
-          className="font-display text-2xl font-bold"
+          className="font-display text-2xl font-bold relative"
           aria-label="Mile High Golden Elevation - Home"
         >
           <span className="text-primary">MILE HIGH</span>
+          <div className="absolute -top-1 -right-3 flex items-center gap-1 text-xs text-primary/80">
+            <Crown className="h-3 w-3" />
+            <span className="font-normal tracking-wide">ELITE</span>
+          </div>
         </Link>
 
         <nav className="hidden md:flex items-center space-x-8">
