@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Plus, RefreshCw, Settings } from 'lucide-react'
@@ -235,7 +236,13 @@ export function WebhookManager() {
                     </CardHeader>
                     <CardContent>
                       <EditWebhookForm 
-                        webhook={webhook}
+                        webhook={{
+                          id: webhook.id,
+                          name: webhook.name,
+                          type: webhook.type,
+                          url: webhook.url,
+                          headers: webhook.headers as Record<string, string> || {},
+                        }}
                         onClose={() => setEditingWebhook(null)}
                       />
                     </CardContent>
