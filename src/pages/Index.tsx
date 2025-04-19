@@ -10,6 +10,8 @@ import { CustomDesignCTA } from "@/components/home/CustomDesignCTA";
 import { SalesBanner } from "@/components/home/SalesBanner";
 import { FAQSection } from "@/components/home/FAQSection";
 import { PersonalizedRecommendations } from "@/components/home/PersonalizedRecommendations";
+import { VIPBenefits } from "@/components/home/VIPBenefits";
+import { GamificationPreview } from "@/components/home/GamificationPreview";
 
 const Index = () => {
   return (
@@ -17,7 +19,9 @@ const Index = () => {
       <HeroSection />
       <SalesBanner />
       <CategorySection />
+      <VIPBenefits />
       <FeaturedProducts />
+      <GamificationPreview />
       <PersonalizedRecommendations />
       <CustomDesignCTA />
       <TestimonialsSection />
