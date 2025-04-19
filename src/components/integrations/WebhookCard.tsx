@@ -1,12 +1,14 @@
+
 import React from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Switch } from "@/components/ui/switch"
-import { Settings, RefreshCw, Bell } from "lucide-react"
+import { Settings, RefreshCw, Bell, BarChart2 } from "lucide-react"
 import { supabase } from '@/integrations/supabase/client'
 import { toast } from 'sonner'
 import { WebhookLogViewer } from './WebhookLogViewer'
+import { WebhookActivityChart } from './WebhookActivityChart'
 import { EditWebhookForm } from './EditWebhookForm'
 import { Webhook, WebhookEventConfig } from './types'
 import { Badge } from "@/components/ui/badge"
@@ -18,6 +20,7 @@ interface WebhookCardProps {
 
 export function WebhookCard({ webhook, onTest }: WebhookCardProps) {
   const [showLogs, setShowLogs] = React.useState(false)
+  const [showActivity, setShowActivity] = React.useState(false)
   const [isEditing, setIsEditing] = React.useState(false)
   const queryClient = useQueryClient()
 
@@ -70,6 +73,14 @@ export function WebhookCard({ webhook, onTest }: WebhookCardProps) {
             <Button
               variant="outline"
               size="sm"
+              onClick={() => setShowActivity(!showActivity)}
+            >
+              <BarChart2 className="h-4 w-4 mr-2" />
+              Activity
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
               onClick={() => setIsEditing(true)}
             >
               <Settings className="h-4 w-4 mr-2" />
@@ -108,6 +119,10 @@ export function WebhookCard({ webhook, onTest }: WebhookCardProps) {
             </div>
           )}
 
+          {showActivity && (
+            <WebhookActivityChart webhookId={webhook.id} />
+          )}
+
           {isEditing && (
             <Card>
               <CardHeader>
@@ -135,5 +150,5 @@ export function WebhookCard({ webhook, onTest }: WebhookCardProps) {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
