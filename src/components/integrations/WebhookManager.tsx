@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Plus } from 'lucide-react'
@@ -10,6 +9,7 @@ import { WebhookPagination } from './WebhookPagination'
 import { WebhookList } from './WebhookList'
 import { WebhookAddForm } from './WebhookAddForm'
 import { Webhook } from './types'
+import { WebhookErrorBoundary } from './WebhookErrorBoundary'
 
 export function WebhookManager() {
   const [showAddForm, setShowAddForm] = useState(false)
@@ -82,41 +82,44 @@ export function WebhookManager() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Webhooks</h2>
-        <Button onClick={() => setShowAddForm(!showAddForm)}>
-          <Plus className="mr-2 h-4 w-4" />
-          Add Webhook
-        </Button>
+    <WebhookErrorBoundary>
+      <div className="space-y-6">
+        <div className="flex justify-between items-center">
+          <h2 className="text-2xl font-bold">Webhooks</h2>
+          <Button onClick={() => setShowAddForm(!showAddForm)}>
+            <Plus className="mr-2 h-4 w-4" />
+            Add Webhook
+          </Button>
+        </div>
+
+        <WebhookFilterBar
+          search={search}
+          onSearchChange={setSearch}
+          typeFilter={typeFilter}
+          onTypeFilterChange={setTypeFilter}
+        />
+
+        {showAddForm && (
+          <WebhookAddForm onClose={() => setShowAddForm(false)} />
+        )}
+
+        <WebhookList 
+          webhooks={paginatedWebhooks}
+          onTestWebhook={(webhookId) => testWebhookMutation.mutate(webhookId)}
+          isLoading={isLoading}
+        />
+
+        <WebhookPagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+          pageSize={pageSize}
+          onPageSizeChange={(size) => {
+            setPageSize(size)
+            setCurrentPage(1)
+          }}
+        />
       </div>
-
-      <WebhookFilterBar
-        search={search}
-        onSearchChange={setSearch}
-        typeFilter={typeFilter}
-        onTypeFilterChange={setTypeFilter}
-      />
-
-      {showAddForm && (
-        <WebhookAddForm onClose={() => setShowAddForm(false)} />
-      )}
-
-      <WebhookList 
-        webhooks={paginatedWebhooks}
-        onTestWebhook={(webhookId) => testWebhookMutation.mutate(webhookId)}
-      />
-
-      <WebhookPagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={setCurrentPage}
-        pageSize={pageSize}
-        onPageSizeChange={(size) => {
-          setPageSize(size)
-          setCurrentPage(1)
-        }}
-      />
-    </div>
+    </WebhookErrorBoundary>
   )
 }
