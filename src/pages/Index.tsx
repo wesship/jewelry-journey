@@ -9,6 +9,7 @@ import { CategorySection } from "@/components/home/CategorySection";
 import { CustomDesignCTA } from "@/components/home/CustomDesignCTA";
 import { SalesBanner } from "@/components/home/SalesBanner";
 import { FAQSection } from "@/components/home/FAQSection";
+import { PersonalizedRecommendations } from "@/components/home/PersonalizedRecommendations";
 
 const Index = () => {
   return (
@@ -17,6 +18,7 @@ const Index = () => {
       <SalesBanner />
       <CategorySection />
       <FeaturedProducts />
+      <PersonalizedRecommendations />
       <CustomDesignCTA />
       <TestimonialsSection />
       <FAQSection />
