@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Clock, Sparkles, Crown, Timer } from "lucide-react";
+import { BadgeDollarSign, Timer, Sparkles, Diamond } from "lucide-react";
 
 export function SalesBanner() {
   const [timeLeft, setTimeLeft] = useState("23:59:59");
@@ -34,37 +34,40 @@ export function SalesBanner() {
   }, [timeLeft]);
 
   return (
-    <section className="bg-primary text-black py-8 shadow-md relative overflow-hidden">
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDBoNjB2NjBIMHoiLz48cGF0aCBkPSJNMzYgMzRjMC0yLjIwOS0xLjc5MS00LTQtNHMtNCAxLjc5MS00IDQgMS43OTEgNCA0IDQgNC0xLjc5MSA0LTR6IiBzdHJva2U9InJnYmEoMCwwLDAsMC4xKSIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9nPjwvc3ZnPg==')] opacity-5"/>
+    <section className="bg-gradient-to-r from-[#9b87f5] to-[#D946EF] text-white py-8 shadow-lg relative overflow-hidden">
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDBoNjB2NjBIMHoiLz48cGF0aCBkPSJNMzYgMzRjMC0yLjIwOS0xLjc5MS00LTQtNHMtNCAxLjc5MS00IDQgMS43OTEgNCA0IDQgNC0xLjc5MSA0LTR6IiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9nPjwvc3ZnPg==')] opacity-10"/>
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2">
-              <Crown className="h-6 w-6 text-black/80" strokeWidth={2.5} />
+              <BadgeDollarSign className="h-6 w-6 text-white" strokeWidth={2.5} />
               <h3 className="text-xl font-bold">
-                Elite Collection Release
+                $1 Million AI Challenge
               </h3>
             </div>
-            <div className="hidden md:flex items-center gap-2 bg-black/5 px-3 py-1 rounded-full">
+            <div className="hidden md:flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full">
               <Timer className="h-4 w-4" />
               <span className="font-mono font-bold">{timeLeft}</span>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 animate-pulse text-black/80" />
-            <p className="text-black text-lg">
-              VIP Code: <span className="font-bold bg-black/10 px-2 py-1 rounded">LUXURY20</span>
+            <Sparkles className="h-5 w-5 animate-pulse" />
+            <p className="text-white text-lg">
+              Early Bird: <span className="font-bold bg-white/20 px-2 py-1 rounded">MILLION23</span>
             </p>
           </div>
           <Link
             to="/collections"
-            className="group bg-black text-white px-8 py-3 rounded-md hover:bg-black/80 transition-all duration-300 font-bold text-base shadow-lg relative overflow-hidden"
+            className="group bg-white text-[#9b87f5] px-8 py-3 rounded-md hover:bg-white/90 transition-all duration-300 font-bold text-base shadow-lg relative overflow-hidden"
           >
-            <span className="relative z-10">Access Now</span>
-            <span className="text-xs ml-2 bg-primary/20 px-2 py-0.5 rounded-full">
+            <span className="relative z-10 flex items-center gap-2">
+              <Diamond className="w-4 h-4" />
+              Register Now
+            </span>
+            <span className="text-xs ml-2 bg-[#9b87f5]/10 px-2 py-0.5 rounded-full">
               {itemsLeft} spots left
             </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700"/>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#9b87f5]/10 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700"/>
           </Link>
         </div>
       </div>
