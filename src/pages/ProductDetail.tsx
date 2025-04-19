@@ -1,5 +1,4 @@
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Layout } from "@/components/layout";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
@@ -12,15 +11,31 @@ import { ProductInfo } from "@/components/product/ProductInfo";
 import { ProductDetails } from "@/components/product/ProductDetails";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
 import { getProductById } from "@/utils/productUtils";
+import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
+import { RecentlyViewed } from "@/components/product/RecentlyViewed";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [selectedSize, setSelectedSize] = useState("");
   const navigate = useNavigate();
+  const { recentlyViewed, addToRecentlyViewed } = useRecentlyViewed();
   
-  // In a real app, you would handle loading states and errors
   const product = getProductById(id || "");
   
+  useEffect(() => {
+    if (product) {
+      const basicProduct = {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.images[0],
+        category: product.category,
+        material: product.material
+      };
+      addToRecentlyViewed(basicProduct);
+    }
+  }, [product]);
+
   const handleAddToCart = () => {
     if (!selectedSize) {
       toast.error("Please select a size");
@@ -42,7 +57,6 @@ const ProductDetail = () => {
 
   return (
     <Layout>
-      {/* Back button and Breadcrumb */}
       <div className="bg-jewelry-background py-4">
         <div className="container">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-2">
@@ -86,7 +100,6 @@ const ProductDetail = () => {
         </div>
       </div>
       
-      {/* Product Detail */}
       <section className="py-12">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -108,6 +121,8 @@ const ProductDetail = () => {
           </div>
         </div>
       </section>
+      
+      <RecentlyViewed products={recentlyViewed} />
       
       <ProductDetails longDescription={product.longDescription} />
       
