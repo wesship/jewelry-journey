@@ -14,7 +14,7 @@ export default function Integrations() {
       <div className="container py-8">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold mb-2">External Integrations</h1>
+            <h1 className="text-3xl font-bold mb-2">Integration Hub</h1>
             <p className="text-gray-600">
               Connect your store to external services and APIs to enhance your business capabilities.
             </p>
