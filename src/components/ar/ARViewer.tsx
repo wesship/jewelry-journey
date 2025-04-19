@@ -1,4 +1,3 @@
-
 import React, { Suspense, useMemo } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { 
@@ -9,20 +8,27 @@ import {
   useProgress,
   Html,
 } from '@react-three/drei';
+import { Loader, Activity } from 'lucide-react';
 import { RingModel } from './RingModel';
 import { NecklaceModel } from './models/NecklaceModel';
 import { EarringModel } from './models/EarringModel';
 import { ARErrorBoundary } from './ARErrorBoundary';
 import { useARInteractions } from '@/hooks/useARInteractions';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Progress } from '@/components/ui/progress';
+import { toast } from 'sonner';
 
-function Loader() {
-  const { progress } = useProgress();
+function LoadingIndicator() {
+  const { progress, totalProgress } = useProgress();
   return (
     <Html center>
-      <div className="flex flex-col items-center gap-2">
-        <Skeleton className="w-24 h-24 rounded-full" />
-        <p className="text-sm font-medium">{progress.toFixed(0)}% loaded</p>
+      <div className="flex flex-col items-center gap-4 p-4 bg-background/80 backdrop-blur rounded-lg shadow-lg">
+        <div className="relative">
+          <Activity className="h-8 w-8 text-primary animate-pulse" />
+          <Skeleton className="w-16 h-16 rounded-full absolute -top-4 -left-4 animate-spin-slow" />
+        </div>
+        <Progress value={progress} className="w-32" />
+        <p className="text-sm font-medium">Loading Model ({progress.toFixed(0)}%)</p>
       </div>
     </Html>
   );
@@ -36,7 +42,7 @@ interface ARViewerProps {
 }
 
 export function ARViewer({ isLoading, isRotating, jewelryType = 'ring', modelQuality = 'high' }: ARViewerProps) {
-  const { handleZoom, handleDrag } = useARInteractions(jewelryType);
+  const { handleZoom, handleDrag, handleKeyboardInteraction } = useARInteractions(jewelryType);
 
   const pixelRatio = useMemo(() => {
     switch (modelQuality) {
@@ -55,14 +61,27 @@ export function ARViewer({ isLoading, isRotating, jewelryType = 'ring', modelQua
     }
   }, [jewelryType]);
 
+  React.useEffect(() => {
+    window.addEventListener('keydown', handleKeyboardInteraction);
+    return () => window.removeEventListener('keydown', handleKeyboardInteraction);
+  }, [handleKeyboardInteraction]);
+
   return (
-    <div className="w-full h-[300px] rounded-lg overflow-hidden bg-gradient-to-b from-gray-900 to-gray-800">
+    <div 
+      className="w-full h-[300px] rounded-lg overflow-hidden bg-gradient-to-b from-gray-900 to-gray-800"
+      role="region"
+      aria-label={`3D viewer for ${jewelryType}`}
+      tabIndex={0}
+    >
       <ARErrorBoundary>
         <Canvas
           camera={{ position: [0, 0, 5], fov: 45 }}
           dpr={pixelRatio}
+          onCreated={({ gl }) => {
+            toast.success(`${jewelryType} model loaded successfully`);
+          }}
         >
-          <Suspense fallback={<Loader />}>
+          <Suspense fallback={<LoadingIndicator />}>
             <ambientLight intensity={0.5} />
             <spotLight 
               position={[10, 10, 10]} 
@@ -102,11 +121,11 @@ export function ARViewer({ isLoading, isRotating, jewelryType = 'ring', modelQua
               maxDistance={10}
               onStart={handleDrag}
               onChange={(e) => {
-                // Check if the event is related to zoom
                 if (e.target.getDistance) {
                   handleZoom();
                 }
               }}
+              aria-label="3D controls"
             />
           </Suspense>
         </Canvas>

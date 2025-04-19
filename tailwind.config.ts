@@ -1,7 +1,6 @@
+import { Config } from "tailwindcss";
 
-import type { Config } from "tailwindcss";
-
-export default {
+const config: Config = {
 	darkMode: ["class"],
 	content: [
 		"./pages/**/*.{ts,tsx}",
@@ -123,7 +122,8 @@ export default {
 				'slide-in-right': 'slide-in-right 0.5s ease-out',
 				'slide-in-left': 'slide-in-left 0.5s ease-out',
 				'image-shine': 'image-shine 1.5s ease-in-out infinite',
-				'pulse-subtle': 'pulse-subtle 3s ease-in-out infinite'
+				'pulse-subtle': 'pulse-subtle 3s ease-in-out infinite',
+				"spin-slow": "spin 3s linear infinite",
 			},
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
@@ -144,4 +144,6 @@ export default {
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+};
+
+export default config;
