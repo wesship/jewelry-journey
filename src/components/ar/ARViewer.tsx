@@ -19,7 +19,7 @@ import { Progress } from '@/components/ui/progress';
 import { toast } from 'sonner';
 
 function LoadingIndicator() {
-  const { progress, totalProgress } = useProgress();
+  const { progress } = useProgress();
   return (
     <Html center>
       <div className="flex flex-col items-center gap-4 p-4 bg-background/80 backdrop-blur rounded-lg shadow-lg">
