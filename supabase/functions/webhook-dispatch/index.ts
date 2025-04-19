@@ -14,7 +14,7 @@ serve(async (req) => {
   }
 
   try {
-    const { webhookId, payload } = await req.json()
+    const { webhookId, payload, eventType } = await req.json()
     
     // Create Supabase client
     const supabase = createClient(
@@ -37,6 +37,30 @@ serve(async (req) => {
       throw new Error('Webhook is not active')
     }
 
+    // Check if this event is enabled for this webhook
+    let shouldTrigger = true;
+    
+    if (eventType && webhook.settings?.events) {
+      const events = webhook.settings.events;
+      const eventConfig = events.find((e: any) => e.eventType === eventType);
+      
+      if (!eventConfig || !eventConfig.enabled) {
+        throw new Error(`Event ${eventType} is not enabled for this webhook`)
+      }
+      
+      // If there's a custom payload for this event, use it
+      if (eventConfig.customPayload) {
+        Object.assign(payload, eventConfig.customPayload);
+      }
+    }
+
+    // Include event type in payload if it's not already there
+    const finalPayload = {
+      event: eventType || 'test',
+      timestamp: new Date().toISOString(),
+      ...payload
+    };
+
     // Make the webhook call
     const response = await fetch(webhook.url, {
       method: 'POST',
@@ -44,7 +68,7 @@ serve(async (req) => {
         'Content-Type': 'application/json',
         ...webhook.headers,
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(finalPayload),
     })
 
     const responseData = await response.json().catch(() => null)
@@ -53,7 +77,7 @@ serve(async (req) => {
     await supabase.from('webhook_logs').insert({
       webhook_id: webhookId,
       status: response.status.toString(),
-      request_data: payload,
+      request_data: finalPayload,
       response_data: responseData,
     })
 

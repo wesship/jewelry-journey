@@ -4,12 +4,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Switch } from "@/components/ui/switch"
-import { Settings, RefreshCw } from "lucide-react"
+import { Settings, RefreshCw, Bell } from "lucide-react"
 import { supabase } from '@/integrations/supabase/client'
 import { toast } from 'sonner'
 import { WebhookLogViewer } from './WebhookLogViewer'
 import { EditWebhookForm } from './EditWebhookForm'
-import { Webhook } from './types'
+import { Webhook, WebhookEventConfig } from './types'
+import { Badge } from "@/components/ui/badge"
 
 interface WebhookCardProps {
   webhook: Webhook;
@@ -20,6 +21,14 @@ export function WebhookCard({ webhook, onTest }: WebhookCardProps) {
   const [showLogs, setShowLogs] = React.useState(false)
   const [isEditing, setIsEditing] = React.useState(false)
   const queryClient = useQueryClient()
+
+  // Extract events from webhook settings or use empty array
+  const events: WebhookEventConfig[] = 
+    webhook.events || 
+    (webhook.settings as any)?.events || 
+    [];
+
+  const enabledEvents = events.filter(event => event.enabled);
 
   const toggleWebhookMutation = useMutation({
     mutationFn: async ({ id, isActive }: { id: string; isActive: boolean }) => {
@@ -84,6 +93,22 @@ export function WebhookCard({ webhook, onTest }: WebhookCardProps) {
               </div>
             )}
           </div>
+
+          {enabledEvents.length > 0 && (
+            <div className="space-y-2">
+              <div className="flex items-center text-sm font-medium">
+                <Bell className="h-4 w-4 mr-2" />
+                Configured Events:
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {enabledEvents.map(event => (
+                  <Badge key={event.eventType} variant="secondary">
+                    {event.eventType}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
 
           {isEditing && (
             <Card>

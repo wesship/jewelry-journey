@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Plus } from 'lucide-react'
@@ -29,7 +30,14 @@ export function WebhookManager() {
         .order('created_at', { ascending: false })
       
       if (error) throw error
-      return data as Webhook[]
+      
+      // Transform webhooks to add events from settings if needed
+      return (data || []).map((webhook: any) => {
+        return {
+          ...webhook,
+          events: webhook.settings?.events || []
+        };
+      }) as Webhook[];
     },
   })
 
@@ -59,7 +67,7 @@ export function WebhookManager() {
         body: {
           webhookId,
           payload: {
-            event: 'test',
+            testData: true,
             timestamp: new Date().toISOString(),
           },
         },

@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/integrations/supabase/client'
 import { Button } from '@/components/ui/button'
@@ -7,23 +7,27 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { toast } from 'sonner'
-import { Database } from '@/integrations/supabase/types'
-
-type WebhookType = Database['public']['Enums']['webhook_type']
+import { WebhookEventConfig as WebhookEventSelector } from './WebhookEventConfig'
+import { Webhook, WebhookEventConfig, WebhookType } from './types'
 
 interface EditWebhookFormProps {
-  webhook: {
-    id: string
-    name: string
-    type: WebhookType
-    url: string
-    headers: Record<string, string>
-  }
-  onClose: () => void
+  webhook: Webhook;
+  onClose: () => void;
 }
 
 export function EditWebhookForm({ webhook, onClose }: EditWebhookFormProps) {
-  const [formData, setFormData] = React.useState(webhook)
+  const [formData, setFormData] = useState<{
+    id: string;
+    name: string;
+    type: WebhookType;
+    url: string;
+    headers: Record<string, string>;
+    events: WebhookEventConfig[];
+  }>({
+    ...webhook,
+    events: webhook.events || (webhook.settings as any)?.events || []
+  })
+  
   const queryClient = useQueryClient()
 
   const updateWebhookMutation = useMutation({
@@ -35,6 +39,10 @@ export function EditWebhookForm({ webhook, onClose }: EditWebhookFormProps) {
           type: data.type,
           url: data.url,
           headers: data.headers,
+          settings: { 
+            ...((webhook.settings as any) || {}),
+            events: data.events 
+          }
         })
         .eq('id', data.id)
 
@@ -93,6 +101,12 @@ export function EditWebhookForm({ webhook, onClose }: EditWebhookFormProps) {
           required
         />
       </div>
+      
+      <WebhookEventSelector 
+        events={formData.events}
+        onChange={(events) => setFormData({ ...formData, events })}
+      />
+
       <div className="flex justify-end space-x-2">
         <Button type="button" variant="outline" onClick={onClose}>
           Cancel
