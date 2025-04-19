@@ -1,9 +1,9 @@
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2, RotateCw, Hand } from 'lucide-react';
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { ARViewer } from './ARViewer';
 
 export function ARTryOn() {
@@ -13,61 +13,73 @@ export function ARTryOn() {
   const [arSession, setARSession] = useState<any>(null);
 
   React.useEffect(() => {
-    // Check if WebXR is supported
+    // Check if WebXR is supported with improved error handling
     if ('xr' in navigator) {
       navigator.xr?.isSessionSupported('immersive-ar')
         .then((supported) => {
           setIsARSupported(supported);
+          if (supported) {
+            toast.success("AR is supported on your device!");
+          }
         })
         .catch((error) => {
           console.error('Error checking AR support:', error);
           setIsARSupported(false);
+          toast.error("Could not verify AR support");
         });
+    } else {
+      toast.error("WebXR is not available on this browser");
     }
   }, []);
 
-  const handleTryOn = async () => {
+  const handleTryOn = useCallback(async () => {
     setIsLoading(true);
     try {
       if (!navigator.xr) {
         throw new Error('WebXR not available');
       }
 
+      // Request AR session with hand tracking and DOM overlay
       const session = await navigator.xr.requestSession('immersive-ar', {
         requiredFeatures: ['hand-tracking'],
-        optionalFeatures: ['dom-overlay'],
+        optionalFeatures: ['dom-overlay', 'hit-test'],
         domOverlay: { root: document.body }
       });
 
-      setARSession(session);
-      
+      // Set up session end handler
       session.addEventListener('end', () => {
         setARSession(null);
-        toast({
-          title: "AR Session Ended",
-          description: "You've exited the AR experience",
+        toast.info("AR Session Ended", {
+          description: "You've exited the AR experience"
         });
       });
 
-      toast({
-        title: "AR Experience Started",
+      // Handle input sources (e.g., hand tracking)
+      session.addEventListener('inputsourceschange', (event: any) => {
+        const inputSources = event.session.inputSources;
+        if (inputSources.length > 0) {
+          toast.success("Hand tracking active");
+        }
+      });
+
+      setARSession(session);
+      toast.success("AR Experience Started", {
         description: "Move your hand to place the ring",
       });
-    } catch (error) {
+
+    } catch (error: any) {
       console.error('Error launching AR:', error);
-      toast({
-        title: "Error",
-        description: "Failed to launch AR experience. Make sure you're using a supported device and browser.",
-        variant: "destructive",
+      toast.error("Failed to launch AR", {
+        description: error.message || "Make sure you're using a supported device and browser."
       });
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
-  const toggleRotation = () => {
+  const toggleRotation = useCallback(() => {
     setIsRotating(!isRotating);
-  };
+  }, [isRotating]);
 
   if (!isARSupported) {
     return (
@@ -114,6 +126,7 @@ export function ARTryOn() {
             variant="outline"
             size="icon"
             onClick={toggleRotation}
+            title={isRotating ? "Stop Rotation" : "Start Rotation"}
           >
             <RotateCw className={`h-4 w-4 ${isRotating ? 'animate-spin' : ''}`} />
           </Button>
