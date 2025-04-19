@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Loader2, RotateCw } from 'lucide-react';
+import { Loader2, RotateCw, Hand } from 'lucide-react';
 import { toast } from "@/components/ui/use-toast";
 import { ARViewer } from './ARViewer';
 
@@ -10,6 +10,7 @@ export function ARTryOn() {
   const [isLoading, setIsLoading] = useState(false);
   const [isARSupported, setIsARSupported] = useState(false);
   const [isRotating, setIsRotating] = useState(true);
+  const [arSession, setARSession] = useState<any>(null);
 
   React.useEffect(() => {
     // Check if WebXR is supported
@@ -28,17 +29,35 @@ export function ARTryOn() {
   const handleTryOn = async () => {
     setIsLoading(true);
     try {
-      // This is a placeholder for the AR session initialization
-      // In a full implementation, this would initialize WebXR
+      if (!navigator.xr) {
+        throw new Error('WebXR not available');
+      }
+
+      const session = await navigator.xr.requestSession('immersive-ar', {
+        requiredFeatures: ['hand-tracking'],
+        optionalFeatures: ['dom-overlay'],
+        domOverlay: { root: document.body }
+      });
+
+      setARSession(session);
+      
+      session.addEventListener('end', () => {
+        setARSession(null);
+        toast({
+          title: "AR Session Ended",
+          description: "You've exited the AR experience",
+        });
+      });
+
       toast({
-        title: "AR Experience",
-        description: "AR try-on feature coming soon!",
+        title: "AR Experience Started",
+        description: "Move your hand to place the ring",
       });
     } catch (error) {
       console.error('Error launching AR:', error);
       toast({
         title: "Error",
-        description: "Failed to launch AR experience",
+        description: "Failed to launch AR experience. Make sure you're using a supported device and browser.",
         variant: "destructive",
       });
     } finally {
@@ -55,7 +74,7 @@ export function ARTryOn() {
       <Card className="w-full max-w-md mx-auto">
         <CardHeader>
           <CardTitle>Virtual Try-On</CardTitle>
-          <CardDescription>AR is not supported on your device</CardDescription>
+          <CardDescription>AR is not supported on your device. Try using a device with AR capabilities.</CardDescription>
         </CardHeader>
       </Card>
     );
@@ -65,10 +84,14 @@ export function ARTryOn() {
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
         <CardTitle>Virtual Try-On</CardTitle>
-        <CardDescription>Try on rings virtually using AR</CardDescription>
+        <CardDescription>
+          {arSession 
+            ? "Move your hand to position the ring" 
+            : "Try on rings virtually using AR"}
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <ARViewer isLoading={isLoading} />
+        <ARViewer isLoading={isLoading} isRotating={isRotating} />
         <div className="flex gap-2">
           <Button
             onClick={handleTryOn}
@@ -81,7 +104,10 @@ export function ARTryOn() {
                 Initializing AR...
               </>
             ) : (
-              'Try On Ring'
+              <>
+                <Hand className="mr-2 h-4 w-4" />
+                Try On Ring
+              </>
             )}
           </Button>
           <Button
