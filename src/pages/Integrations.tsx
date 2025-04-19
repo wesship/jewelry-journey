@@ -2,6 +2,7 @@
 import { Layout } from "@/components/layout";
 import { IntegrationList } from "@/components/integrations/IntegrationList";
 import { CRMConfig } from "@/components/integrations/CRMConfig";
+import { ARTryOn } from "@/components/ar/ARTryOn";
 
 export default function Integrations() {
   return (
@@ -12,6 +13,11 @@ export default function Integrations() {
         <section className="space-y-6">
           <h2 className="text-2xl font-semibold text-white">CRM Configuration</h2>
           <CRMConfig />
+        </section>
+        
+        <section className="space-y-6">
+          <h2 className="text-2xl font-semibold text-white">Virtual Try-On</h2>
+          <ARTryOn />
         </section>
         
         <section className="space-y-6">
