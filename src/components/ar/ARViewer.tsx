@@ -12,10 +12,20 @@ import {
 import { RingModel } from './RingModel';
 import { NecklaceModel } from './models/NecklaceModel';
 import { EarringModel } from './models/EarringModel';
+import { ARErrorBoundary } from './ARErrorBoundary';
+import { useARInteractions } from '@/hooks/useARInteractions';
+import { Skeleton } from '@/components/ui/skeleton';
 
 function Loader() {
   const { progress } = useProgress();
-  return <Html center>{progress.toFixed(0)}% loaded</Html>;
+  return (
+    <Html center>
+      <div className="flex flex-col items-center gap-2">
+        <Skeleton className="w-24 h-24 rounded-full" />
+        <p className="text-sm font-medium">{progress.toFixed(0)}% loaded</p>
+      </div>
+    </Html>
+  );
 }
 
 interface ARViewerProps {
@@ -26,6 +36,8 @@ interface ARViewerProps {
 }
 
 export function ARViewer({ isLoading, isRotating, jewelryType = 'ring', modelQuality = 'high' }: ARViewerProps) {
+  const { handleZoom, handleDrag } = useARInteractions(jewelryType);
+
   const pixelRatio = useMemo(() => {
     switch (modelQuality) {
       case 'low': return [1, 1] as [number, number];
@@ -45,49 +57,55 @@ export function ARViewer({ isLoading, isRotating, jewelryType = 'ring', modelQua
 
   return (
     <div className="w-full h-[300px] rounded-lg overflow-hidden bg-gradient-to-b from-gray-900 to-gray-800">
-      <Canvas
-        camera={{ position: [0, 0, 5], fov: 45 }}
-        dpr={pixelRatio}
-      >
-        <Suspense fallback={<Loader />}>
-          <ambientLight intensity={0.5} />
-          <spotLight 
-            position={[10, 10, 10]} 
-            angle={0.15} 
-            penumbra={1} 
-            intensity={1.5}
-            castShadow
-          />
-          <PresentationControls
-            global
-            zoom={0.8}
-            rotation={[0, -Math.PI / 4, 0]}
-            polar={[-Math.PI / 4, Math.PI / 4]}
-            azimuth={[-Math.PI / 4, Math.PI / 4]}
-            config={{ mass: 2, tension: 500 }}
-            snap={{ mass: 4, tension: 1500 }}
-          >
-            <JewelryComponent isRotating={isRotating} />
-          </PresentationControls>
-          <ContactShadows 
-            position={[0, -1.5, 0]}
-            opacity={0.4}
-            scale={5}
-            blur={2.4}
-            far={4}
-          />
-          <Environment preset="sunset" background blur={0.8} />
-          <OrbitControls 
-            enableZoom={true}
-            enablePan={true}
-            enableRotate={true}
-            minPolarAngle={Math.PI / 4}
-            maxPolarAngle={Math.PI - Math.PI / 4}
-            dampingFactor={0.05}
-            rotateSpeed={0.5}
-          />
-        </Suspense>
-      </Canvas>
+      <ARErrorBoundary>
+        <Canvas
+          camera={{ position: [0, 0, 5], fov: 45 }}
+          dpr={pixelRatio}
+        >
+          <Suspense fallback={<Loader />}>
+            <ambientLight intensity={0.5} />
+            <spotLight 
+              position={[10, 10, 10]} 
+              angle={0.15} 
+              penumbra={1} 
+              intensity={1.5}
+              castShadow
+            />
+            <PresentationControls
+              global
+              zoom={0.8}
+              rotation={[0, -Math.PI / 4, 0]}
+              polar={[-Math.PI / 4, Math.PI / 4]}
+              azimuth={[-Math.PI / 4, Math.PI / 4]}
+              config={{ mass: 2, tension: 500 }}
+              snap={{ mass: 4, tension: 1500 }}
+            >
+              <JewelryComponent isRotating={isRotating} />
+            </PresentationControls>
+            <ContactShadows 
+              position={[0, -1.5, 0]}
+              opacity={0.4}
+              scale={5}
+              blur={2.4}
+              far={4}
+            />
+            <Environment preset="sunset" background blur={0.8} />
+            <OrbitControls 
+              enableZoom={true}
+              enablePan={true}
+              enableRotate={true}
+              minPolarAngle={Math.PI / 4}
+              maxPolarAngle={Math.PI - Math.PI / 4}
+              dampingFactor={0.05}
+              rotateSpeed={0.5}
+              minDistance={3}
+              maxDistance={10}
+              onStart={handleDrag}
+              onZoom={handleZoom}
+            />
+          </Suspense>
+        </Canvas>
+      </ARErrorBoundary>
     </div>
   );
 }
