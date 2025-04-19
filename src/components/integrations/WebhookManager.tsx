@@ -16,9 +16,14 @@ type WebhookType = Database['public']['Enums']['webhook_type']
 
 export function WebhookManager() {
   const [showAddForm, setShowAddForm] = useState(false)
-  const [newWebhook, setNewWebhook] = useState({
+  const [newWebhook, setNewWebhook] = useState<{
+    name: string;
+    type: WebhookType;
+    url: string;
+    headers: Record<string, string>;
+  }>({
     name: '',
-    type: 'custom' as WebhookType,
+    type: 'custom',
     url: '',
     headers: {},
   })
