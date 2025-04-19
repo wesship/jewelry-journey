@@ -1,3 +1,4 @@
+
 // Sample product data
 export const allProducts = [
   {
@@ -223,6 +224,7 @@ export const getProductById = (id: string) => {
       material: "Unknown",
       description: "This product could not be found.",
       longDescription: "We're sorry, but the product you're looking for is not available. Please check the product ID and try again, or browse our collections for other beautiful jewelry pieces.",
+      availableSizes: ["One Size"], // Add default availableSizes
       isNew: false,
       isBestseller: false,
       relatedProducts: allProducts.slice(0, 4).map(p => ({
@@ -240,6 +242,7 @@ export const getProductById = (id: string) => {
     images: [product.image, product.image, product.image, product.image], // Use the main image for all slots
     description: `Beautiful ${product.name} crafted with ${product.material}.`,
     longDescription: `This exquisite ${product.name} showcases the finest craftsmanship and materials. Made with ${product.material}, this piece embodies elegance and sophistication. Perfect for special occasions or as a treasured gift.`,
+    availableSizes: ["One Size"], // Add default availableSizes for all products
     isNew: false,
     isBestseller: false,
     relatedProducts: allProducts.filter(p => p.id !== product.id).slice(0, 4).map(p => ({
