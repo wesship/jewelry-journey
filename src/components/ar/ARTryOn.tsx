@@ -2,12 +2,14 @@
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Loader2 } from 'lucide-react';
+import { Loader2, RotateCw } from 'lucide-react';
 import { toast } from "@/components/ui/use-toast";
+import { ARViewer } from './ARViewer';
 
 export function ARTryOn() {
   const [isLoading, setIsLoading] = useState(false);
   const [isARSupported, setIsARSupported] = useState(false);
+  const [isRotating, setIsRotating] = useState(true);
 
   React.useEffect(() => {
     // Check if WebXR is supported
@@ -44,6 +46,10 @@ export function ARTryOn() {
     }
   };
 
+  const toggleRotation = () => {
+    setIsRotating(!isRotating);
+  };
+
   if (!isARSupported) {
     return (
       <Card className="w-full max-w-md mx-auto">
@@ -61,21 +67,31 @@ export function ARTryOn() {
         <CardTitle>Virtual Try-On</CardTitle>
         <CardDescription>Try on rings virtually using AR</CardDescription>
       </CardHeader>
-      <CardContent>
-        <Button
-          onClick={handleTryOn}
-          disabled={isLoading}
-          className="w-full"
-        >
-          {isLoading ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Initializing AR...
-            </>
-          ) : (
-            'Try On Ring'
-          )}
-        </Button>
+      <CardContent className="space-y-4">
+        <ARViewer isLoading={isLoading} />
+        <div className="flex gap-2">
+          <Button
+            onClick={handleTryOn}
+            disabled={isLoading}
+            className="flex-1"
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Initializing AR...
+              </>
+            ) : (
+              'Try On Ring'
+            )}
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={toggleRotation}
+          >
+            <RotateCw className={`h-4 w-4 ${isRotating ? 'animate-spin' : ''}`} />
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );
