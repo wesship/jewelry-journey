@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Search, ShoppingCart, User, Package, Settings } from "lucide-react";
+import { Search, ShoppingCart, User, Package, Settings, Link2 } from "lucide-react";
 
 const NAV_LINKS = [
   { name: "COLLECTIONS", path: "/collections" },
@@ -55,7 +55,7 @@ export function Navbar() {
           ))}
         </nav>
 
-        <div className="flex items-center space-x-6">
+        <div className="flex items-center space-x-4">
           <Link 
             to="/search" 
             className="p-2 text-white hover:text-primary transition-colors"
@@ -72,10 +72,11 @@ export function Navbar() {
           </Link>
           <Link 
             to="/integrations" 
-            className="p-2 text-white hover:text-primary transition-colors"
+            className="p-2 text-white hover:text-primary transition-colors flex items-center gap-1"
             aria-label="Integrations"
           >
-            <Settings size={22} strokeWidth={2} />
+            <Link2 size={22} strokeWidth={2} />
+            <span className="hidden lg:inline-block text-sm">Integrations</span>
           </Link>
           <Link 
             to="/account" 
