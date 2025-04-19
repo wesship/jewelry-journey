@@ -101,7 +101,12 @@ export function ARViewer({ isLoading, isRotating, jewelryType = 'ring', modelQua
               minDistance={3}
               maxDistance={10}
               onStart={handleDrag}
-              onZoom={handleZoom}
+              onChange={(e) => {
+                // Check if the event is related to zoom
+                if (e.target.getDistance) {
+                  handleZoom();
+                }
+              }}
             />
           </Suspense>
         </Canvas>
