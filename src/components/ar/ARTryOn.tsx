@@ -1,7 +1,5 @@
 
 import React, { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
@@ -11,6 +9,13 @@ import { Input } from '@/components/ui/input';
 import { Loader2, CheckCircle, Settings, Camera } from 'lucide-react';
 import { toast } from 'sonner';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+
+// Mock data for AR products instead of trying to query from Supabase
+const mockARProducts = [
+  { id: 1, name: 'Diamond Engagement Ring', type: 'ring', model_url: '/models/ring-1.glb' },
+  { id: 2, name: 'Sapphire Earrings', type: 'earring', model_url: '/models/earring-1.glb' },
+  { id: 3, name: 'Pearl Necklace', type: 'necklace', model_url: '/models/necklace-1.glb' },
+];
 
 export function ARTryOn() {
   const [isEnabled, setIsEnabled] = useState(true);
@@ -22,31 +27,8 @@ export function ARTryOn() {
     enableNecklaceTryOn: false,
     customModelUrl: '',
   });
-
-  const { data: arProducts, isLoading } = useQuery({
-    queryKey: ['ar-products'],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('products')
-        .select('*')
-        .eq('has_ar_model', true)
-        .limit(5);
-      
-      if (error) throw error;
-      
-      // If no data available, return sample data
-      if (!data || data.length === 0) {
-        return [
-          { id: 1, name: 'Diamond Engagement Ring', type: 'ring', model_url: '/models/ring-1.glb' },
-          { id: 2, name: 'Sapphire Earrings', type: 'earring', model_url: '/models/earring-1.glb' },
-          { id: 3, name: 'Pearl Necklace', type: 'necklace', model_url: '/models/necklace-1.glb' },
-        ];
-      }
-      
-      return data;
-    },
-    enabled: isEnabled
-  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [arProducts, setArProducts] = useState(mockARProducts);
 
   const toggleARFeature = () => {
     setIsEnabled(!isEnabled);
