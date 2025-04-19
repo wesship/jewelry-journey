@@ -1,11 +1,10 @@
-
 import React from "react";
 import { Layout } from "@/components/layout";
 import { SearchBar } from "@/components/search/SearchBar";
 import { FilterPanel } from "@/components/search/FilterPanel";
 import { ProductGrid } from "@/components/search/ProductGrid";
 import { useProductFilter } from "@/hooks/useProductFilter";
-import { allProducts } from "@/data/productData";
+import { allProducts } from "@/data/basicProducts";
 
 const Search = () => {
   const {

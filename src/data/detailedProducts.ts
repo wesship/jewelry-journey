@@ -1,3 +1,4 @@
+
 import { DetailedProduct } from "@/types/product";
 
 export const productDetails: Record<string, DetailedProduct> = {
@@ -103,6 +104,7 @@ export const productDetails: Record<string, DetailedProduct> = {
     material: "Gold, Pearl",
     description: "An elegant strand of cultured Akoya pearls with a 14k gold clasp. These luminous pearls create a sophisticated look for any occasion.",
     longDescription: "Our Pearl Necklace features 35 perfectly matched, AAA quality Akoya cultured pearls measuring 7-7.5mm in diameter. These pearls are known for their exceptional luster and consistently round shape, creating a classic necklace that epitomizes timeless elegance. \n\nEach pearl has been carefully selected for its smooth surface, rich luster, and clean white color with subtle rose overtones. The necklace is hand-knotted on silk thread for security and proper spacing between each pearl. \n\nThe 18-inch length is secured with a 14k gold ball clasp that is both secure and easy to operate. The necklace arrives in a beautiful presentation box, making it an ideal gift for yourself or someone special. Pearls are the traditional gift for a 30th anniversary and represent wisdom, integrity, and purity.",
+    availableSizes: ["16\"", "18\"", "20\"", "24\""],
     isNew: false,
     isBestseller: true,
     relatedProducts: [
@@ -131,6 +133,6 @@ export const productDetails: Record<string, DetailedProduct> = {
         image: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&q=80&w=800"
       }
     ]
-  },
+  }
   // Add more products with detailed information as needed
 };

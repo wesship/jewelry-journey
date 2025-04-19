@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Layout } from "@/components/layout";
@@ -10,7 +9,7 @@ import { ProductImageGallery } from "@/components/product/ProductImageGallery";
 import { ProductInfo } from "@/components/product/ProductInfo";
 import { ProductDetails } from "@/components/product/ProductDetails";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
-import { getProductById } from "@/data/productData";
+import { getProductById } from "@/utils/productUtils";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
