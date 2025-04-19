@@ -10,12 +10,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@/components/ui/switch'
 import { supabase } from '@/integrations/supabase/client'
 import { toast } from 'sonner'
+import { Database } from '@/integrations/supabase/types'
+
+type WebhookType = Database['public']['Enums']['webhook_type']
 
 export function WebhookManager() {
   const [showAddForm, setShowAddForm] = useState(false)
   const [newWebhook, setNewWebhook] = useState({
     name: '',
-    type: 'custom' as const,
+    type: 'custom' as WebhookType,
     url: '',
     headers: {},
   })
@@ -110,7 +113,7 @@ export function WebhookManager() {
                 <Label htmlFor="type">Type</Label>
                 <Select
                   value={newWebhook.type}
-                  onValueChange={(value: 'slack' | 'discord' | 'zapier' | 'custom') => 
+                  onValueChange={(value: WebhookType) => 
                     setNewWebhook({ ...newWebhook, type: value })
                   }
                 >
