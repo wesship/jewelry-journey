@@ -75,6 +75,80 @@ export type Database = {
         }
         Relationships: []
       }
+      webhook_logs: {
+        Row: {
+          created_at: string | null
+          id: string
+          request_data: Json | null
+          response_data: Json | null
+          status: string
+          webhook_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          request_data?: Json | null
+          response_data?: Json | null
+          status: string
+          webhook_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          request_data?: Json | null
+          response_data?: Json | null
+          status?: string
+          webhook_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "webhook_logs_webhook_id_fkey"
+            columns: ["webhook_id"]
+            isOneToOne: false
+            referencedRelation: "webhooks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      webhooks: {
+        Row: {
+          created_at: string | null
+          headers: Json | null
+          id: string
+          is_active: boolean | null
+          last_triggered_at: string | null
+          name: string
+          settings: Json | null
+          type: Database["public"]["Enums"]["webhook_type"]
+          updated_at: string | null
+          url: string
+        }
+        Insert: {
+          created_at?: string | null
+          headers?: Json | null
+          id?: string
+          is_active?: boolean | null
+          last_triggered_at?: string | null
+          name: string
+          settings?: Json | null
+          type: Database["public"]["Enums"]["webhook_type"]
+          updated_at?: string | null
+          url: string
+        }
+        Update: {
+          created_at?: string | null
+          headers?: Json | null
+          id?: string
+          is_active?: boolean | null
+          last_triggered_at?: string | null
+          name?: string
+          settings?: Json | null
+          type?: Database["public"]["Enums"]["webhook_type"]
+          updated_at?: string | null
+          url?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -83,7 +157,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      webhook_type: "slack" | "discord" | "zapier" | "custom"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -198,6 +272,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      webhook_type: ["slack", "discord", "zapier", "custom"],
+    },
   },
 } as const
