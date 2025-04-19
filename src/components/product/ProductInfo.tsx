@@ -1,8 +1,8 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { Heart, Share2 } from "lucide-react";
+import { Heart } from "lucide-react";
 import { toast } from "sonner";
+import { ShareProduct } from "./ShareProduct";
 
 interface ProductInfoProps {
   name: string;
@@ -31,6 +31,8 @@ export function ProductInfo({
   onAddToCart,
   onAddToWishlist
 }: ProductInfoProps) {
+  const productUrl = window.location.href;
+
   return (
     <div className="space-y-6">
       <div>
@@ -90,14 +92,7 @@ export function ProductInfo({
             Add to Wishlist
           </Button>
           
-          <Button 
-            variant="outline" 
-            className="flex-1 border-primary text-primary hover:bg-primary/5"
-            onClick={() => toast.success("Share link copied!")}
-          >
-            <Share2 className="mr-2 h-4 w-4" />
-            Share
-          </Button>
+          <ShareProduct productName={name} productUrl={productUrl} />
         </div>
       </div>
     </div>
