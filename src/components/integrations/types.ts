@@ -25,6 +25,7 @@ export interface Webhook {
   headers: Record<string, string>;
   is_active: boolean;
   events?: WebhookEventConfig[];
+  settings?: Record<string, any>;
   last_triggered_at?: string;
   created_at?: string;
 }

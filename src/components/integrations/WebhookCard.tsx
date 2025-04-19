@@ -1,4 +1,3 @@
-
 import React from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Button } from "@/components/ui/button"
@@ -25,8 +24,7 @@ export function WebhookCard({ webhook, onTest }: WebhookCardProps) {
   // Extract events from webhook settings or use empty array
   const events: WebhookEventConfig[] = 
     webhook.events || 
-    (webhook.settings as any)?.events || 
-    [];
+    (webhook.settings?.events as WebhookEventConfig[] || []);
 
   const enabledEvents = events.filter(event => event.enabled);
 

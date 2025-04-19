@@ -25,7 +25,7 @@ export function EditWebhookForm({ webhook, onClose }: EditWebhookFormProps) {
     events: WebhookEventConfig[];
   }>({
     ...webhook,
-    events: webhook.events || (webhook.settings as any)?.events || []
+    events: webhook.events || (webhook.settings?.events as WebhookEventConfig[] || [])
   })
   
   const queryClient = useQueryClient()
@@ -39,10 +39,10 @@ export function EditWebhookForm({ webhook, onClose }: EditWebhookFormProps) {
           type: data.type,
           url: data.url,
           headers: data.headers,
-          settings: { 
-            ...((webhook.settings as any) || {}),
+          settings: JSON.parse(JSON.stringify({ 
+            ...(webhook.settings || {}),
             events: data.events 
-          }
+          }))
         })
         .eq('id', data.id)
 

@@ -49,15 +49,18 @@ export function WebhookAddForm({ onClose }: WebhookAddFormProps) {
 
   const addWebhookMutation = useMutation({
     mutationFn: async (webhook: typeof newWebhook) => {
+      // Create a serializable version of the data
+      const webhookData = {
+        name: webhook.name,
+        type: webhook.type,
+        url: webhook.url,
+        headers: webhook.headers,
+        settings: JSON.parse(JSON.stringify({ events: webhook.events }))
+      };
+      
       const { error } = await supabase
         .from('webhooks')
-        .insert([{
-          name: webhook.name,
-          type: webhook.type,
-          url: webhook.url,
-          headers: webhook.headers,
-          settings: { events: webhook.events }
-        }])
+        .insert([webhookData])
       
       if (error) throw error
     },

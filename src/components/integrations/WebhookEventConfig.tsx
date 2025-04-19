@@ -2,14 +2,14 @@
 import React from 'react'
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
-import { WebhookEventConfig, WebhookEventType } from './types'
+import { type WebhookEventConfig as WebhookEventConfigType, WebhookEventType } from './types'
 import { Button } from "@/components/ui/button"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Textarea } from "@/components/ui/textarea"
 
 interface WebhookEventConfigProps {
-  events: WebhookEventConfig[];
-  onChange: (events: WebhookEventConfig[]) => void;
+  events: WebhookEventConfigType[];
+  onChange: (events: WebhookEventConfigType[]) => void;
 }
 
 const availableEvents: { value: WebhookEventType; label: string }[] = [
