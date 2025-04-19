@@ -12,7 +12,7 @@ export function ARTryOn() {
   React.useEffect(() => {
     // Check if WebXR is supported
     if ('xr' in navigator) {
-      navigator.xr?.isSessionSupported('immersive-ar')
+      navigator.xr.isSessionSupported('immersive-ar')
         .then((supported) => {
           setIsARSupported(supported);
         })
