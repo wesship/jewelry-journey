@@ -1,6 +1,6 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
+import { Crown, Diamond, Star } from "lucide-react";
 
 export function HeroSection() {
   return (
@@ -16,22 +16,38 @@ export function HeroSection() {
       
       <div className="container relative z-20 text-center mx-auto px-4">
         <div className="max-w-3xl mx-auto bg-black/30 backdrop-blur-sm p-6 rounded-lg">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Crown className="h-6 w-6 text-primary" />
+            <span className="text-primary font-bold tracking-widest">EXCLUSIVE COLLECTION</span>
+          </div>
           <h1 className="mb-6 text-5xl md:text-6xl lg:text-7xl text-white font-display drop-shadow-lg">
             MILE HIGH <span className="text-primary font-bold">GOLDEN</span> ELEVATION
           </h1>
           <p className="text-white font-medium mb-3 uppercase tracking-widest text-sm">
-            GEMSTONES & WONDERS
+            LIMITED TIME LUXURY ACCESS
           </p>
           <p className="text-xl mb-10 text-white max-w-xl mx-auto">
-            Sculpt your personalized luxuries
+            Join our elite collectors and unlock exclusive designs
           </p>
-          <div className="flex justify-center mb-8">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
             <Link
               to="/collections"
-              className="btn-primary bg-primary text-black hover:bg-primary/90 px-10 py-3 uppercase tracking-wider font-bold shadow-lg"
+              className="btn-primary bg-primary text-black hover:bg-primary/90 px-10 py-3 uppercase tracking-wider font-bold shadow-lg flex items-center gap-2"
             >
-              SHOP NOW
+              <Diamond className="h-5 w-5" />
+              SHOP ELITE
             </Link>
+            <Link
+              to="/custom"
+              className="btn-outline border-2 border-white/20 text-white hover:bg-white/10 px-10 py-3 uppercase tracking-wider font-bold"
+            >
+              CUSTOM DESIGN
+            </Link>
+          </div>
+          <div className="flex items-center justify-center gap-4 text-primary/80">
+            <Star className="h-4 w-4" />
+            <span className="text-sm font-medium">Members receive priority access</span>
+            <Star className="h-4 w-4" />
           </div>
         </div>
       </div>
