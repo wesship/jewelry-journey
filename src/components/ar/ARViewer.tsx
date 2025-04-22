@@ -8,7 +8,6 @@ import {
   PresentationControls,
   useProgress,
   Html,
-  useGesture,
 } from '@react-three/drei';
 import { Loader, Activity, ZoomIn, RotateCw } from 'lucide-react';
 import { RingModel } from './RingModel';
@@ -119,6 +118,11 @@ export function ARViewer({ isLoading, isRotating, jewelryType = 'ring', modelQua
     }
   }, [jewelryType]);
 
+  // Handle double-click manually since doubleClickSpeed isn't a valid prop
+  const handleDoubleClick = useCallback(() => {
+    handleDoubleTap();
+  }, [handleDoubleTap]);
+
   return (
     <div 
       className="w-full h-[300px] rounded-lg overflow-hidden bg-gradient-to-b from-gray-900 to-gray-800 relative touch-none"
@@ -179,8 +183,7 @@ export function ARViewer({ isLoading, isRotating, jewelryType = 'ring', modelQua
                   handleZoom();
                 }
               }}
-              doubleClickSpeed={0.3}
-              onDoubleClick={handleDoubleTap}
+              onDoubleClick={handleDoubleClick}
               aria-label="3D controls"
             />
           </Suspense>
