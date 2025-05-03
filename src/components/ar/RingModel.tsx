@@ -1,7 +1,6 @@
 
 import React, { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 
 export function RingModel({ isRotating = true }) {
@@ -43,17 +42,11 @@ export function RingModel({ isRotating = true }) {
       onClick={() => setClicked(!clicked)}
     >
       <torusGeometry args={[1, 0.2, 32, 100]} />
-      <meshPhysicalMaterial 
+      <meshStandardMaterial 
         color={new THREE.Color("#FFD700")}
         metalness={0.9}
         roughness={0.1}
-        clearcoat={1}
-        clearcoatRoughness={0.1}
-        reflectivity={1}
         envMapIntensity={1}
-        ior={2.4}
-        transmission={0}
-        thickness={1}
       />
     </mesh>
   );

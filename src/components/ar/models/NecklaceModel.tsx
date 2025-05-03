@@ -1,7 +1,6 @@
 
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 
 export function NecklaceModel({ isRotating = true }) {
@@ -29,12 +28,11 @@ export function NecklaceModel({ isRotating = true }) {
             ]}
           >
             <sphereGeometry args={[0.08, 32, 32]} />
-            <meshPhysicalMaterial
+            <meshStandardMaterial
               color={new THREE.Color("#FFD700")}
               metalness={0.9}
               roughness={0.1}
-              clearcoat={1}
-              reflectivity={1}
+              envMapIntensity={1}
             />
           </mesh>
         );

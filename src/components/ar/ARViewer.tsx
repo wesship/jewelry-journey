@@ -6,7 +6,6 @@ import {
   Environment, 
   ContactShadows,
   PresentationControls,
-  useProgress,
   Html,
 } from '@react-three/drei';
 import { Loader, Activity, ZoomIn, RotateCw } from 'lucide-react';
@@ -20,7 +19,23 @@ import { Progress } from '@/components/ui/progress';
 import { toast } from 'sonner';
 
 function LoadingIndicator() {
-  const { progress } = useProgress();
+  const [progress, setProgress] = useState(0);
+  
+  // Simulate loading progress
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(timer);
+          return 100;
+        }
+        return prev + 5;
+      });
+    }, 200);
+    
+    return () => clearInterval(timer);
+  }, []);
+  
   return (
     <Html center>
       <div className="flex flex-col items-center gap-4 p-4 bg-background/80 backdrop-blur rounded-lg shadow-lg">
@@ -106,7 +121,7 @@ export function ARViewer({ isLoading, isRotating, jewelryType = 'ring', modelQua
     setShowHelp(false);
   }, []);
 
-  const handleCanvasCreated = useCallback(({ gl }) => {
+  const handleCanvasCreated = useCallback(() => {
     toast.success(`${jewelryType} model loaded successfully`);
     // Enable checking for WebXR support
     if (navigator.xr) {
@@ -118,7 +133,7 @@ export function ARViewer({ isLoading, isRotating, jewelryType = 'ring', modelQua
     }
   }, [jewelryType]);
 
-  // Handle double-click manually since doubleClickSpeed isn't a valid prop
+  // Handle double-click manually
   const handleDoubleClick = useCallback(() => {
     handleDoubleTap();
   }, [handleDoubleTap]);
@@ -166,7 +181,7 @@ export function ARViewer({ isLoading, isRotating, jewelryType = 'ring', modelQua
               blur={2.4}
               far={4}
             />
-            <Environment preset="sunset" background blur={0.8} />
+            <Environment preset="sunset" />
             <OrbitControls 
               enableZoom={true}
               enablePan={true}
