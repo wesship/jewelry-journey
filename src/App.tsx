@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -24,6 +25,7 @@ import Account from "./pages/Account";
 import Search from "./pages/Search";
 import SupplierManagement from "./pages/SupplierManagement";
 import Integrations from "./pages/Integrations";
+import MillionChallenge from "./pages/MillionChallenge";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +56,7 @@ const App = () => (
           <Route path="/search" element={<Search />} />
           <Route path="/suppliers" element={<SupplierManagement />} />
           <Route path="/integrations" element={<Integrations />} />
+          <Route path="/million-challenge" element={<MillionChallenge />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

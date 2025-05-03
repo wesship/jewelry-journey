@@ -7,20 +7,20 @@ import { NewsletterSection } from "@/components/home/NewsletterSection";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { CategorySection } from "@/components/home/CategorySection";
 import { CustomDesignCTA } from "@/components/home/CustomDesignCTA";
-import { SalesBanner } from "@/components/home/SalesBanner";
 import { FAQSection } from "@/components/home/FAQSection";
 import { PersonalizedRecommendations } from "@/components/home/PersonalizedRecommendations";
 import { VIPBenefits } from "@/components/home/VIPBenefits";
 import { GamificationPreview } from "@/components/home/GamificationPreview";
 import { VIPAccessModal } from "@/components/home/VIPAccessModal";
 import { AchievementBadges } from "@/components/home/AchievementBadges";
+import { ChallengePromoWidget } from "@/components/home/ChallengePromoWidget";
 
 const Index = () => {
   return (
     <Layout>
       <HeroSection />
-      <SalesBanner />
       <CategorySection />
+      <ChallengePromoWidget />
       <VIPBenefits />
       <FeaturedProducts />
       <GamificationPreview />

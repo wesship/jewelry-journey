@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { BadgeDollarSign, Diamond, Star, Sparkles } from "lucide-react";
+import { Diamond, Star, Sparkles } from "lucide-react";
 
 export function HeroSection() {
   return (
@@ -17,37 +17,33 @@ export function HeroSection() {
       
       <div className="container relative z-20 text-center mx-auto px-4">
         <div className="max-w-4xl mx-auto bg-black/30 backdrop-blur-sm p-8 rounded-lg">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <BadgeDollarSign className="h-8 w-8 text-[#D946EF]" />
-            <span className="text-[#D946EF] font-bold tracking-widest">$1 MILLION CHALLENGE</span>
-          </div>
           <h1 className="mb-6 text-5xl md:text-6xl lg:text-7xl text-white font-display">
-            TRANSFORM YOUR <span className="text-[#9b87f5] font-bold">AI IDEA</span> INTO REALITY
+            EXPERIENCE <span className="text-[#9b87f5] font-bold">LUXURY</span> REDEFINED
           </h1>
           <p className="text-white font-medium mb-3 uppercase tracking-widest text-sm">
-            Limited Time Opportunity
+            Exclusive Collection
           </p>
           <p className="text-xl mb-10 text-white/90 max-w-2xl mx-auto">
-            Join the elite group of innovators competing for the $1 million prize pool
+            Discover our exceptional jewelry pieces created with precision craftsmanship
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
             <Link
-              to="/register"
+              to="/collections"
               className="btn-primary bg-gradient-to-r from-[#9b87f5] to-[#D946EF] text-white hover:opacity-90 px-10 py-4 uppercase tracking-wider font-bold shadow-lg flex items-center gap-2 rounded-md"
             >
               <Sparkles className="h-5 w-5" />
-              Enter Challenge
+              Explore Collection
             </Link>
             <Link
-              to="/learn-more"
+              to="/custom"
               className="btn-outline border-2 border-white/20 text-white hover:bg-white/10 px-10 py-4 uppercase tracking-wider font-bold rounded-md"
             >
-              View Details
+              Custom Design
             </Link>
           </div>
           <div className="flex items-center justify-center gap-4 text-[#D946EF]">
             <Star className="h-4 w-4" />
-            <span className="text-sm font-medium">Early registration bonus available</span>
+            <span className="text-sm font-medium">Free shipping on orders over $100</span>
             <Star className="h-4 w-4" />
           </div>
         </div>
@@ -57,19 +53,19 @@ export function HeroSection() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <FeatureCard 
-              icon={<BadgeDollarSign className="h-6 w-6 text-[#9b87f5]" />}
-              title="$1M PRIZE POOL"
-              description="Transform your AI innovation into success"
+              icon={<Sparkles className="h-6 w-6 text-[#9b87f5]" />}
+              title="UNIQUE DESIGNS"
+              description="One-of-a-kind jewelry pieces"
             />
             <FeatureCard 
               icon={<Diamond className="h-6 w-6 text-[#9b87f5]" />}
-              title="EXPERT MENTORSHIP"
-              description="Get guidance from industry leaders"
+              title="PREMIUM QUALITY"
+              description="Ethically sourced materials"
             />
             <FeatureCard 
-              icon={<Sparkles className="h-6 w-6 text-[#9b87f5]" />}
-              title="GLOBAL EXPOSURE"
-              description="Showcase your AI solution worldwide"
+              icon={<Star className="h-6 w-6 text-[#9b87f5]" />}
+              title="LIFETIME WARRANTY"
+              description="Trust in our craftsmanship"
             />
           </div>
         </div>

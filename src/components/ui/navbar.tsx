@@ -1,13 +1,14 @@
+
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Search, ShoppingCart, User, Package, Settings, Link2, Crown } from "lucide-react";
+import { Search, ShoppingCart, User, Package, Settings, Link2, Crown, BadgeDollarSign } from "lucide-react";
 
 const NAV_LINKS = [
   { name: "COLLECTIONS", path: "/collections" },
   { name: "DIAMOND", path: "/collections/rings" },
   { name: "YOURS NOW", path: "/custom" },
+  { name: "MILLION $", path: "/million-challenge" },
   { name: "MOSER", path: "/about" },
-  { name: "STOR", path: "/blog" },
 ];
 
 export function Navbar() {
@@ -59,6 +60,14 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center space-x-4">
+          <Link 
+            to="/million-challenge" 
+            className="p-2 text-white hover:text-primary transition-colors hidden lg:flex items-center gap-1"
+            aria-label="$1 Million Challenge"
+          >
+            <BadgeDollarSign size={22} strokeWidth={2} />
+            <span className="hidden xl:inline-block text-sm">$1M Challenge</span>
+          </Link>
           <Link 
             to="/search" 
             className="p-2 text-white hover:text-primary transition-colors"
